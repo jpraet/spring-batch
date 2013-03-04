@@ -223,8 +223,11 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 						}
 						else {
 							output = doProcess(item);
-							if (!processorTransactional && !data.scanning()) {
+							if (!processorTransactional && !data.scanning() && output != null) {
 								cache.add(output);
+							}
+							if (output == null) {
+								data.incrementFilterCount();
 							}
 						}
 					}
@@ -254,8 +257,7 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 					}
 					if (output == null) {
 						// No need to re-process filtered items
-						iterator.remove();
-						data.incrementFilterCount();
+						iterator.remove();						
 					}
 					return output;
 				}

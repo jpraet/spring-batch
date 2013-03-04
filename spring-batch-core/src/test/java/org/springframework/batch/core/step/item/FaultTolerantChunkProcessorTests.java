@@ -486,7 +486,43 @@ public class FaultTolerantChunkProcessorTests {
 		assertEquals(1, contribution.getWriteCount());
 		assertEquals(0, contribution.getFilterCount());
 	}
-
+	
+	@Test
+	// BATCH-1973
+	public void testProcessFilterAndSkippableException() throws Exception {
+		final List<String> processedItems = new ArrayList<String>();
+		processor.setProcessorTransactional(false);
+		processor.setProcessSkipPolicy(new AlwaysSkipItemSkipPolicy());
+		processor
+		.setRollbackClassifier(new BinaryExceptionClassifier(
+				Collections
+				.<Class<? extends Throwable>> singleton(RuntimeException.class),
+				false));		
+		processor.setItemProcessor(new ItemProcessor<String, String>() {
+			@Override
+			public String process(String item) throws Exception {
+				processedItems.add(item);
+				if(item.contains("fail")) {
+					throw new RuntimeException("Expected Skippable Exception");
+				}
+				if(item.contains("skip")) {
+					return null;
+				}				
+				return item;
+			}
+		});
+		processor.afterPropertiesSet();
+		Chunk<String> inputs = new Chunk<String>(Arrays.asList("1", "2", "skip", "skip", "3", "fail", "fail", "4", "5"));
+		processor.process(contribution, inputs);
+		assertEquals(5, list.size());
+		assertEquals("[1, 2, 3, 4, 5]", list.toString());
+		assertEquals(2, contribution.getFilterCount());
+		assertEquals(2, contribution.getProcessSkipCount());
+		assertEquals(9, processedItems.size());
+		assertEquals("[1, 2, skip, skip, 3, fail, fail, 4, 5]", processedItems.toString());
+		
+	}
+	
 	protected void processAndExpectPlannedRuntimeException(Chunk<String> chunk)
 			throws Exception {
 		try {
