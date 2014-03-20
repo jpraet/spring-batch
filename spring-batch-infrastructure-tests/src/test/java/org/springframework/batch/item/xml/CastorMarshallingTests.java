@@ -6,6 +6,7 @@ import org.springframework.oxm.castor.CastorMarshaller;
 
 public class CastorMarshallingTests extends AbstractStaxEventWriterItemWriterTests {
 
+	@Override
 	protected Marshaller getMarshaller() throws Exception {
 
 		CastorMarshaller marshaller = new CastorMarshaller();

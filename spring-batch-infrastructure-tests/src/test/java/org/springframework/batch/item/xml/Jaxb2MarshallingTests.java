@@ -17,6 +17,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 public class Jaxb2MarshallingTests extends AbstractStaxEventWriterItemWriterTests {
 
+	@Override
 	protected Marshaller getMarshaller() throws Exception {
 		
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();

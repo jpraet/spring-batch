@@ -34,6 +34,7 @@ public class MultiLineTradeItemWriter implements ItemWriter<Trade>, ItemStream {
 
 	private FlatFileItemWriter<String> delegate;
 
+	@Override
 	public void write(List<? extends Trade> items) throws Exception {
 		List<String> lines = new ArrayList<String>();
 		for (Trade t : items) {
@@ -49,14 +50,17 @@ public class MultiLineTradeItemWriter implements ItemWriter<Trade>, ItemStream {
 		this.delegate = delegate;
 	}
 
+	@Override
 	public void close() throws ItemStreamException {
 		this.delegate.close();
 	}
 
+	@Override
 	public void open(ExecutionContext executionContext) throws ItemStreamException {
 		this.delegate.open(executionContext);
 	}
 
+	@Override
 	public void update(ExecutionContext executionContext) throws ItemStreamException {
 		this.delegate.update(executionContext);
 	}

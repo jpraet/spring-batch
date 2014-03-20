@@ -9,6 +9,7 @@ import java.util.Collections;
 public class XStreamMarshallingTests extends
 		AbstractStaxEventWriterItemWriterTests {
 
+	@Override
 	protected Marshaller getMarshaller() throws Exception {
 		XStreamMarshaller marshaller = new XStreamMarshaller();
 //		marshaller.addAlias("trade", Trade.class);

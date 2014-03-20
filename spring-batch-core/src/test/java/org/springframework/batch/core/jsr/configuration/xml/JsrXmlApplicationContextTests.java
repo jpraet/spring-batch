@@ -19,6 +19,7 @@ public class JsrXmlApplicationContextTests {
 	private static final String JOB_PARAMETERS_BEAN_DEFINITION_NAME = "jsr_jobParameters";
 
 	@Test
+	@SuppressWarnings("resource")
 	public void testNullProperties() {
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext(null);
 
@@ -30,6 +31,7 @@ public class JsrXmlApplicationContextTests {
 	}
 
 	@Test
+	@SuppressWarnings("resource")
 	public void testWithProperties() {
 		Properties properties = new Properties();
 		properties.put("prop1key", "prop1val");

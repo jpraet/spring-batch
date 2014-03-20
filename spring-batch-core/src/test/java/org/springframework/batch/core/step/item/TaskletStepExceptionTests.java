@@ -554,6 +554,7 @@ public class TaskletStepExceptionTests {
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	private static class FailingRollbackTransactionManager extends ResourcelessTransactionManager {
 		
 		@Override

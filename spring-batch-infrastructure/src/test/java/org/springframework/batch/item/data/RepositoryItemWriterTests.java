@@ -4,7 +4,9 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -13,18 +15,17 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.repository.CrudRepository;
 
-@SuppressWarnings("rawtypes")
 public class RepositoryItemWriterTests {
 
 	@Mock
-	private CrudRepository repository;
+	private CrudRepository<String, Serializable> repository;
 
-	private RepositoryItemWriter writer;
+	private RepositoryItemWriter<String> writer;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		writer = new RepositoryItemWriter();
+		writer = new RepositoryItemWriter<String>();
 		writer.setMethodName("save");
 		writer.setRepository(repository);
 	}
@@ -46,17 +47,14 @@ public class RepositoryItemWriterTests {
 	public void testWriteNoItems() throws Exception {
 		writer.write(null);
 
-		writer.write(new ArrayList());
+		writer.write(new ArrayList<String>());
 
 		verifyZeroInteractions(repository);
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
 	public void testWriteItems() throws Exception {
-		List<Object> items = new ArrayList<Object>() {{
-			add("foo");
-		}};
+		List<String> items = Collections.singletonList("foo");
 
 		writer.write(items);
 

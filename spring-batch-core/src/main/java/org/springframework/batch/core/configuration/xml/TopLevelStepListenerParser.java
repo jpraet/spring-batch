@@ -23,7 +23,7 @@ public class TopLevelStepListenerParser extends AbstractSingleBeanDefinitionPars
 	}
 
 	@Override
-	protected Class<? extends AbstractListenerFactoryBean> getBeanClass(Element element) {
+	protected Class<? extends AbstractListenerFactoryBean<?>> getBeanClass(Element element) {
 		return stepListenerParser.getBeanClass();
 	}
 

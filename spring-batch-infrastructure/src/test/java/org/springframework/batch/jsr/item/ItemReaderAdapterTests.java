@@ -20,7 +20,7 @@ import org.springframework.batch.item.ItemStreamException;
 
 public class ItemReaderAdapterTests {
 
-	private ItemReaderAdapter adapter;
+	private ItemReaderAdapter<String> adapter;
 	@Mock
 	private ItemReader delegate;
 	@Mock
@@ -30,12 +30,12 @@ public class ItemReaderAdapterTests {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		adapter = new ItemReaderAdapter(delegate);
+		adapter = new ItemReaderAdapter<String>(delegate);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCreateWithNull() {
-		adapter = new ItemReaderAdapter(null);
+		adapter = new ItemReaderAdapter<String>(null);
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class ItemReaderAdapterTests {
 	@Test
 	@SuppressWarnings("serial")
 	public void testCheckpointChange() throws Exception {
-		ItemReaderAdapter adapter = new ItemReaderAdapter(new ItemReader() {
+		ItemReaderAdapter<String> adapter = new ItemReaderAdapter<String>(new ItemReader() {
 
 			private CheckpointContainer container = null;
 			private List<String> items = new ArrayList<String>() {{

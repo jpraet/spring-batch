@@ -28,6 +28,7 @@ public class DelegatingTradeLineAggregator implements LineAggregator<Object> {
 	private LineAggregator<Trade> tradeLineAggregator;
 	private LineAggregator<CustomerCredit> customerLineAggregator;
 
+	@Override
 	public String aggregate(Object item) {
 		if (item instanceof Trade) {
 			return this.tradeLineAggregator.aggregate((Trade) item);

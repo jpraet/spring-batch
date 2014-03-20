@@ -35,6 +35,7 @@ public class CustomerCreditUpdatePreparedStatementSetter implements ItemPrepared
 	/* (non-Javadoc)
 	 * @see org.springframework.batch.io.support.ItemPreparedStatementSetter#setValues(java.lang.Object, java.sql.PreparedStatement)
 	 */
+	@Override
 	public void setValues(CustomerCredit customerCredit, PreparedStatement ps) throws SQLException {
 		ps.setBigDecimal(1, customerCredit.getCredit().add(FIXED_AMOUNT));
 		ps.setLong(2, customerCredit.getId());

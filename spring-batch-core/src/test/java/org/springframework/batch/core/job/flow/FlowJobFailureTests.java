@@ -37,7 +37,7 @@ public class FlowJobFailureTests {
 
 	@Before
 	public void init() throws Exception {
-		JobRepository jobRepository = new MapJobRepositoryFactoryBean().getJobRepository();
+		JobRepository jobRepository = new MapJobRepositoryFactoryBean().getObject();
 		job.setJobRepository(jobRepository);
 		execution = jobRepository.createJobExecution("job", new JobParameters());
 	}

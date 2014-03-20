@@ -10,6 +10,7 @@ import org.springframework.batch.sample.domain.order.Order;
  */
 public class CustomerFieldExtractor implements FieldExtractor<Order> {
 
+	@Override
 	public Object[] extract(Order order) {
 		Customer customer = order.getCustomer();
 		return new Object[] { "CUSTOMER:", customer.getRegistrationId(), emptyIfNull(customer.getFirstName()),

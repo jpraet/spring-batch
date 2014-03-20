@@ -15,10 +15,10 @@ import org.springframework.batch.item.SpELItemKeyMapper;
 import org.springframework.data.gemfire.GemfireTemplate;
 import org.springframework.core.convert.converter.Converter;
 
-@SuppressWarnings({ "rawtypes", "serial", "unchecked" })
+@SuppressWarnings("serial")
 public class GemfireItemWriterTests {
 
-	private GemfireItemWriter writer;
+	private GemfireItemWriter<String, Foo> writer;
 	@Mock
 	private GemfireTemplate template;
 
@@ -27,7 +27,7 @@ public class GemfireItemWriterTests {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		writer = new GemfireItemWriter();
+		writer = new GemfireItemWriter<String, Foo>();
 		writer.setTemplate(template);
 		writer.setItemKeyMapper(new SpELItemKeyMapper<String, Foo>("bar.val"));
 		writer.afterPropertiesSet();
@@ -35,7 +35,7 @@ public class GemfireItemWriterTests {
 
 	@Test
 	public void testAfterPropertiesSet() throws Exception {
-		writer = new GemfireItemWriter();
+		writer = new GemfireItemWriter<String, Foo>();
 
 		try {
 			writer.afterPropertiesSet();
@@ -50,7 +50,7 @@ public class GemfireItemWriterTests {
 		} catch (IllegalArgumentException iae) {
 		}
 
-		writer.setItemKeyMapper(new SpELItemKeyMapper<Object, Object>("foo"));
+		writer.setItemKeyMapper(new SpELItemKeyMapper<String, Foo>("foo"));
 		writer.afterPropertiesSet();
 	}
 
@@ -92,7 +92,7 @@ public class GemfireItemWriterTests {
 				add(new Foo(new Bar("val2")));
 			}
 		};
-		writer = new GemfireItemWriter();
+		writer = new GemfireItemWriter<String, Foo>();
 		writer.setTemplate(template);
 		writer.setItemKeyMapper(new Converter<Foo, String>() {
 

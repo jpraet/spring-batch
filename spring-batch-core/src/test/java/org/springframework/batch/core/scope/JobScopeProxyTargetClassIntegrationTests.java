@@ -32,6 +32,7 @@ public class JobScopeProxyTargetClassIntegrationTests implements BeanFactoryAwar
 
 	private int beanCount;
 
+	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		this.beanFactory = (ListableBeanFactory) beanFactory;
 	}

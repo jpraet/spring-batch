@@ -10,6 +10,7 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 
 public class XStreamUnmarshallingTests extends AbstractStaxEventReaderItemReaderTests {
 
+	@Override
 	protected Unmarshaller getUnmarshaller() throws Exception {
 		XStreamMarshaller unmarshaller = new XStreamMarshaller();
 		Map<String,Class<?>> aliasesMap = new HashMap<String,Class<?>>();

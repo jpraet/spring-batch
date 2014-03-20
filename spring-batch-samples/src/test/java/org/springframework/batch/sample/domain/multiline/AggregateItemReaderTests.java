@@ -22,6 +22,7 @@ public class AggregateItemReaderTests {
 
 			private int count = 0;
 
+			@Override
 			public AggregateItem<String> read() {
 				switch (count++) {
 				case 0:

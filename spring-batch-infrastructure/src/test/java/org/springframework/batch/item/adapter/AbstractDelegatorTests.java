@@ -94,7 +94,7 @@ public class AbstractDelegatorTests {
 		final int FOO_VALUE = 12345;
 
 		delegator.invokeDelegateMethodWithArguments(new Object[] { FOO_NAME, FOO_VALUE });
-		Foo foo = (Foo) fooService.getProcessedFooNameValuePairs().get(0);
+		Foo foo = fooService.getProcessedFooNameValuePairs().get(0);
 		assertEquals(FOO_NAME, foo.getName());
 		assertEquals(FOO_VALUE, foo.getValue());
 	}

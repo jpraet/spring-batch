@@ -50,7 +50,7 @@ import test.jdbc.datasource.DataSourceInitializer;
  * To illustrate the issue the test simulates the behavior of the {@code StepExecutionRequestHandler}
  * from the spring-batch-integration project.
  *  
- * @author "Sergey Shcherbakov"
+ * @author Sergey Shcherbakov
  */
 @ContextConfiguration(classes={SimpleJobExplorerIntegrationTests.Config.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,7 +65,7 @@ public class SimpleJobExplorerIntegrationTests {
 
 		@Bean
 		public JobExplorer jobExplorer() throws Exception {
-			return (JobExplorer) jobExplorerFactoryBean().getObject();
+			return jobExplorerFactoryBean().getObject();
 		}
 		
 		@Bean

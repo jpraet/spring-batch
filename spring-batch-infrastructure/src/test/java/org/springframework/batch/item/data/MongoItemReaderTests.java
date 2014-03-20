@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 public class MongoItemReaderTests {
 
-	private MongoItemReader reader;
+	private MongoItemReader<String> reader;
 	@Mock
 	private MongoOperations template;
 	private Map<String, Sort.Direction> sortOptions;
@@ -30,7 +30,7 @@ public class MongoItemReaderTests {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		reader = new MongoItemReader();
+		reader = new MongoItemReader<String>();
 
 		sortOptions = new HashMap<String, Sort.Direction>();
 		sortOptions.put("name", Sort.Direction.DESC);
@@ -45,7 +45,7 @@ public class MongoItemReaderTests {
 
 	@Test
 	public void testAfterPropertiesSet() throws Exception{
-		reader = new MongoItemReader();
+		reader = new MongoItemReader<String>();
 
 		try {
 			reader.afterPropertiesSet();
@@ -161,9 +161,10 @@ public class MongoItemReaderTests {
 		assertEquals("{ $natural : 1}", query.getHint());
 	}
 
+	@SuppressWarnings("serial")
 	@Test
 	public void testQueryWithParameters() {
-		reader.setParameterValues(new ArrayList<String>(){{
+		reader.setParameterValues(new ArrayList<Object>(){{
 			add("foo");
 		}});
 

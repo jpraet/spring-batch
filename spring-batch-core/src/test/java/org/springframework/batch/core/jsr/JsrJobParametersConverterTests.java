@@ -59,7 +59,7 @@ public class JsrJobParametersConverterTests {
 
 	@Test
 	public void testNonStringJobParameters() {
-		JobParameters parameters = new JobParametersBuilder().addLong("key", 5l, false).toJobParameters();
+		JobParameters parameters = new JobParametersBuilder().addLong("key", 5L, false).toJobParameters();
 		Properties props = converter.getProperties(parameters);
 		assertNotNull(props);
 		Set<Entry<Object, Object>> properties = props.entrySet();
@@ -70,7 +70,7 @@ public class JsrJobParametersConverterTests {
 
 	@Test
 	public void testJobParametersWithRunId() {
-		JobParameters parameters = new JobParametersBuilder().addLong("key", 5l, false).addLong(JsrJobParametersConverter.JOB_RUN_ID, 2l).toJobParameters();
+		JobParameters parameters = new JobParametersBuilder().addLong("key", 5L, false).addLong(JsrJobParametersConverter.JOB_RUN_ID, 2L).toJobParameters();
 		Properties props = converter.getProperties(parameters);
 		assertNotNull(props);
 		Set<Entry<Object, Object>> properties = props.entrySet();
@@ -105,7 +105,7 @@ public class JsrJobParametersConverterTests {
 		JobParameters parameters = converter.getJobParameters(properties);
 		assertEquals(2, parameters.getParameters().size());
 		assertEquals("value", parameters.getString("key"));
-		assertEquals(Long.valueOf(3l), parameters.getLong(JsrJobParametersConverter.JOB_RUN_ID));
+		assertEquals(Long.valueOf(3L), parameters.getLong(JsrJobParametersConverter.JOB_RUN_ID));
 		assertTrue(parameters.getParameters().get(JsrJobParametersConverter.JOB_RUN_ID).isIdentifying());
 	}
 }

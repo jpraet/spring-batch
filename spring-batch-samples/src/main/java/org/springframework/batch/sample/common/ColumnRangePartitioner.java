@@ -61,10 +61,11 @@ public class ColumnRangePartitioner implements Partitioner {
 	 *
 	 * @see Partitioner#partition(int)
 	 */
+	@Override
 	public Map<String, ExecutionContext> partition(int gridSize) {
 
-		int min = jdbcTemplate.queryForInt("SELECT MIN(" + column + ") from " + table);
-		int max = jdbcTemplate.queryForInt("SELECT MAX(" + column + ") from " + table);
+		int min = jdbcTemplate.queryForObject("SELECT MIN(" + column + ") from " + table, Integer.class);
+		int max = jdbcTemplate.queryForObject("SELECT MAX(" + column + ") from " + table, Integer.class);
 		int targetSize = (max - min) / gridSize + 1;
 
 		Map<String, ExecutionContext> result = new HashMap<String, ExecutionContext>();

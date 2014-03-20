@@ -6,6 +6,7 @@ import org.springframework.oxm.castor.CastorMarshaller;
 
 public class CastorUnmarshallingTests extends AbstractStaxEventReaderItemReaderTests {
 
+	@Override
 	protected Unmarshaller getUnmarshaller() throws Exception {
 		CastorMarshaller unmarshaller = new CastorMarshaller();
 		unmarshaller.setMappingLocation(new ClassPathResource("mapping-castor.xml", getClass()));

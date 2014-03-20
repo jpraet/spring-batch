@@ -576,8 +576,7 @@ public class StaxEventItemReaderTests {
 		}
 
 		@Override
-		@SuppressWarnings("rawtypes")
-		public boolean supports(Class clazz) {
+		public boolean supports(Class<?> clazz) {
 			return true;
 		}
 
@@ -634,8 +633,7 @@ public class StaxEventItemReaderTests {
 		}
 
 		@Override
-		@SuppressWarnings("rawtypes")
-		public boolean supports(Class clazz) {
+		public boolean supports(Class<?> clazz) {
 			return true;
 		}
 
@@ -676,7 +674,7 @@ public class StaxEventItemReaderTests {
 
 			}
 			catch (Exception e) {
-				throw new RuntimeException("Error occured in FragmentDeserializer", e);
+				throw new RuntimeException("Error occurred in FragmentDeserializer", e);
 			}
 			return fragmentContent;
 		}

@@ -131,6 +131,7 @@ public class SimpleJobRepositoryIntegrationTests {
 	@Transactional
 	@Test
 	public void testSaveExecutionContext() throws Exception {
+		@SuppressWarnings("serial")
 		ExecutionContext ctx = new ExecutionContext() {
 			{
 				putLong("crashedPosition", 7);

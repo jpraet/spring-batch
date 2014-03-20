@@ -25,6 +25,7 @@ public class TestJob implements Job {
 		context = null;
 	}
 
+	@Override
 	public void execute(JobExecution stepExecution) {
 		context = JobSynchronizationManager.getContext();
 		setContextFromCollaborator();
@@ -43,18 +44,22 @@ public class TestJob implements Job {
 		}
 	}
 
+	@Override
 	public String getName() {
 		return "foo";
 	}
 
+	@Override
 	public boolean isRestartable() {
 		return false;
 	}
 
+	@Override
 	public JobParametersIncrementer getJobParametersIncrementer() {
 		return null;
 	}
 
+	@Override
 	public JobParametersValidator getJobParametersValidator() {
 		return null;
 	}

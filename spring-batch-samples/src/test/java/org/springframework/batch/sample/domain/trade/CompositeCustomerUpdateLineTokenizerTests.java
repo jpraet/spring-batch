@@ -76,6 +76,7 @@ public class CompositeCustomerUpdateLineTokenizerTests {
 			this.fieldSetToReturn = fieldSetToReturn;
 		}
 		
+		@Override
 		public FieldSet tokenize(String line) {
 			this.tokenizedLine = line;
 			return fieldSetToReturn;

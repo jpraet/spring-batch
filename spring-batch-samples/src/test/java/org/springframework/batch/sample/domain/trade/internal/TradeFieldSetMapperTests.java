@@ -18,6 +18,7 @@ public class TradeFieldSetMapperTests extends AbstractFieldSetMapperTests {
 
 	private static final String ISIN = "fj893gnsalX";
 
+	@Override
 	protected Object expectedDomainObject() {
 		Trade trade = new Trade();
 		trade.setIsin(ISIN);
@@ -27,6 +28,7 @@ public class TradeFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return trade;
 	}
 
+	@Override
 	protected FieldSet fieldSet() {
 		String[] tokens = new String[4];
 		tokens[TradeFieldSetMapper.ISIN_COLUMN] = ISIN;
@@ -37,6 +39,7 @@ public class TradeFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return new DefaultFieldSet(tokens);
 	}
 
+	@Override
 	protected FieldSetMapper<Trade> fieldSetMapper() {
 		return new TradeFieldSetMapper();
 	}

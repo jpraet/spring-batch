@@ -50,7 +50,7 @@ public class CompositeItemWriterSampleFunctionalTests {
 	public void testJobLaunch() throws Exception {
 
         jdbcTemplate.update("DELETE from TRADE");
-		int before = jdbcTemplate.queryForInt("SELECT COUNT(*) from TRADE");
+		int before = jdbcTemplate.queryForObject("SELECT COUNT(*) from TRADE", Integer.class);
 
 		jobLauncherTestUtils.launchJob();
 
@@ -61,6 +61,7 @@ public class CompositeItemWriterSampleFunctionalTests {
 	}
 
 	private void checkOutputTable(int before) {
+		@SuppressWarnings("serial")
 		final List<Trade> trades = new ArrayList<Trade>() {
 			{
 				add(new Trade("UK21341EAH41", 211, new BigDecimal("31.11"), "customer1"));
@@ -71,13 +72,14 @@ public class CompositeItemWriterSampleFunctionalTests {
 			}
 		};
 
-		int after = jdbcTemplate.queryForInt("SELECT COUNT(*) from TRADE");
+		int after = jdbcTemplate.queryForObject("SELECT COUNT(*) from TRADE", Integer.class);
 
 		assertEquals(before + 5, after);
 
 
         jdbcTemplate.query(GET_TRADES, new RowCallbackHandler() {
 			private int activeRow = 0;
+			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Trade trade = trades.get(activeRow++);
 
@@ -91,7 +93,7 @@ public class CompositeItemWriterSampleFunctionalTests {
 	}
 
 	private void checkOutputFile(String fileName) throws IOException {
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "resource" })
 		List<String> outputLines = IOUtils.readLines(new FileInputStream(fileName));
 
 		String output = "";

@@ -23,6 +23,7 @@ public class ConfigurableSystemProcessExitCodeMapperTests {
 	 */
 	@Test
 	public void testMapping() {
+		@SuppressWarnings("serial")
 		Map<Object, ExitStatus> mappings = new HashMap<Object, ExitStatus>() {
 			{
 				put(0, ExitStatus.COMPLETED);

@@ -44,6 +44,6 @@ public class SqliteMaxValueIncrementerTests {
 		assertEquals(1, mvi.getNextKey());
 		assertEquals(2, mvi.getNextKey());
 		assertEquals(3, mvi.getNextKey());
-		assertEquals(1, template.queryForInt("select count(*) from max_value"));
+		assertEquals(1, template.queryForObject("select count(*) from max_value", Integer.class).intValue());
 	}
 }

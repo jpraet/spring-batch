@@ -73,7 +73,7 @@ public class RestartFunctionalTests {
 	@Test
 	public void testLaunchJob() throws Exception {
 
-		int before = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM TRADE");
+		int before = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM TRADE", Integer.class);
 
 		JobExecution jobExecution = runJobForRestartTest();
 		assertEquals(BatchStatus.FAILED, jobExecution.getStatus());
@@ -86,14 +86,14 @@ public class RestartFunctionalTests {
 			throw new RuntimeException(ex);
 		}
 
-		int medium = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM TRADE");
+		int medium = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM TRADE", Integer.class);
 		// assert based on commit interval = 2
 		assertEquals(before + 2, medium);
 
 		jobExecution = runJobForRestartTest();
 		assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
 
-		int after = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM TRADE");
+		int after = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM TRADE", Integer.class);
 
 		assertEquals(before + 5, after);
 	}

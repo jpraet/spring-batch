@@ -47,6 +47,7 @@ public class Jaxb2NamespaceMarshallingTests {
 
 	private Resource expected = new ClassPathResource("expected-qualified-output.xml", getClass());
 
+	@SuppressWarnings("serial")
 	private List<QualifiedTrade> objects = new ArrayList<QualifiedTrade>() {
 		{
 			add(new QualifiedTrade("isin1", 1, new BigDecimal(1.0), "customer1"));
@@ -58,13 +59,15 @@ public class Jaxb2NamespaceMarshallingTests {
 	/**
 	 * Write list of domain objects and check the output file.
 	 */
+	@SuppressWarnings("resource")
 	@Test
 	public void testWrite() throws Exception {
 		StopWatch stopWatch = new StopWatch(getClass().getSimpleName());
 		stopWatch.start();
 		for (int i = 0; i < MAX_WRITE; i++) {
-			new TransactionTemplate(new ResourcelessTransactionManager()).execute(new TransactionCallback() {
-				public Object doInTransaction(TransactionStatus status) {
+			new TransactionTemplate(new ResourcelessTransactionManager()).execute(new TransactionCallback<Void>() {
+				@Override
+				public Void doInTransaction(TransactionStatus status) {
 					try {
 						writer.write(objects);
 					}

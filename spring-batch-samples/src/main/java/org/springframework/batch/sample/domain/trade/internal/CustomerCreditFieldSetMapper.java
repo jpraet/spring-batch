@@ -30,6 +30,7 @@ public class CustomerCreditFieldSetMapper implements FieldSetMapper<CustomerCred
 	public static final int NAME_COLUMN = 1;
 	public static final int CREDIT_COLUMN = 2;
 
+	@Override
 	public CustomerCredit mapFieldSet(FieldSet fieldSet) {
 
 		CustomerCredit trade = new CustomerCredit();

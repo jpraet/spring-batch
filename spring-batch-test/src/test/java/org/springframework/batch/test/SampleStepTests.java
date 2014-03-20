@@ -50,7 +50,7 @@ public class SampleStepTests implements ApplicationContextAware {
 	public void testTasklet() {
 		Step step = (Step) context.getBean("s2");
 		assertEquals(BatchStatus.COMPLETED, stepRunner.launchStep(step).getStatus());
-		assertEquals(2, jdbcTemplate.queryForInt("SELECT ID from TESTS where NAME = 'SampleTasklet2'"));
+		assertEquals(2, jdbcTemplate.queryForObject("SELECT ID from TESTS where NAME = 'SampleTasklet2'", Integer.class).intValue());
 	}
 
     @Override

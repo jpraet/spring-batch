@@ -27,7 +27,7 @@ public class MultiResourceItemWriterFlatFileTests extends AbstractMultiResourceI
 	 * @author dsyer
 	 *
 	 */
-	private final class WriterCallback implements TransactionCallback {
+	private final class WriterCallback implements TransactionCallback<Void> {
 		private List<? extends String> list;
 
 		public WriterCallback(List<? extends String> list) {
@@ -36,7 +36,7 @@ public class MultiResourceItemWriterFlatFileTests extends AbstractMultiResourceI
 		}
 
         @Override
-		public Object doInTransaction(TransactionStatus status) {
+		public Void doInTransaction(TransactionStatus status) {
 			try {
 				tested.write(list);
 			}

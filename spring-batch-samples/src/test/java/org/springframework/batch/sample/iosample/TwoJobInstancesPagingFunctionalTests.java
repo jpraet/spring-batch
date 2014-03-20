@@ -61,11 +61,11 @@ public class TwoJobInstancesPagingFunctionalTests {
 
 	@Test
 	public void testLaunchJobTwice() throws Exception {
-		int first = jdbcTemplate.queryForInt("select count(0) from CUSTOMER where credit>1000");
+		int first = jdbcTemplate.queryForObject("select count(0) from CUSTOMER where credit>1000", Integer.class);
 		JobExecution jobExecution = launcher.run(this.job, getJobParameters(1000.));
 		assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
 		assertEquals(first, jobExecution.getStepExecutions().iterator().next().getWriteCount());
-		int second = jdbcTemplate.queryForInt("select count(0) from CUSTOMER where credit>1000000");
+		int second = jdbcTemplate.queryForObject("select count(0) from CUSTOMER where credit>1000000", Integer.class);
 		assertNotSame("The number of records above the threshold did not change", first, second);
 		jobExecution = launcher.run(this.job, getJobParameters(1000000.));
 		assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());

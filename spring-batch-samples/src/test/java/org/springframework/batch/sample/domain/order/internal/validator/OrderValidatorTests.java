@@ -53,7 +53,7 @@ public class OrderValidatorTests {
 	public void testValidOrder() {
 		Order order = new Order();
 		order.setOrderId(-5);
-		order.setOrderDate(new Date(new Date().getTime() + 1000000000l));
+		order.setOrderDate(new Date(new Date().getTime() + 1000000000L));
 		order.setTotalLines(10);
 		order.setLineItems(new ArrayList<LineItem>());
 
@@ -83,7 +83,7 @@ public class OrderValidatorTests {
 		assertEquals("error.order.lines.badcount", errors.getFieldError("totalLines").getCode());
 
 		order = new Order();
-		order.setOrderId(5l);
+		order.setOrderId(5L);
 		order.setOrderDate(new Date(new Date().getTime() - 1000));
 		order.setTotalLines(1);
 		items = new ArrayList<LineItem>();
@@ -144,7 +144,7 @@ public class OrderValidatorTests {
 		customer.setRegistered(true);
 		customer.setBusinessCustomer(true);
 		customer.setCompanyName("Acme Inc");
-		customer.setRegistrationId(5l);
+		customer.setRegistrationId(5L);
 		order.setCustomer(customer);
 
 		errors = new BeanPropertyBindingResult(order, "validOrder");
@@ -157,7 +157,7 @@ public class OrderValidatorTests {
 		customer.setBusinessCustomer(false);
 		customer.setFirstName("John");
 		customer.setLastName("Doe");
-		customer.setRegistrationId(5l);
+		customer.setRegistrationId(5L);
 		order.setCustomer(customer);
 
 		errors = new BeanPropertyBindingResult(order, "validOrder");

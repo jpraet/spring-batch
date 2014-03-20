@@ -71,9 +71,9 @@ public class TransactionalStaxEventItemWriterTests {
 	@Test
 	public void testWriteAndFlush() throws Exception {
 		writer.open(executionContext);
-		new TransactionTemplate(transactionManager).execute(new TransactionCallback() {
+		new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
             @Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				try {
 					writer.write(items);
 				}
@@ -111,9 +111,9 @@ public class TransactionalStaxEventItemWriterTests {
 		});
 		writer.open(executionContext);
 		try {
-			new TransactionTemplate(transactionManager).execute(new TransactionCallback() {
+			new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
                 @Override
-				public Object doInTransaction(TransactionStatus status) {
+				public Void doInTransaction(TransactionStatus status) {
 					try {
 						writer.write(items);
 					}
@@ -130,9 +130,9 @@ public class TransactionalStaxEventItemWriterTests {
 		}
 		writer.close();
 		writer.open(executionContext);
-		new TransactionTemplate(transactionManager).execute(new TransactionCallback() {
+		new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
             @Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				try {
 					writer.write(items);
 				}
@@ -170,9 +170,9 @@ public class TransactionalStaxEventItemWriterTests {
 			
 		});
 		writer.open(executionContext);
-		new TransactionTemplate(transactionManager).execute(new TransactionCallback() {
+		new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
             @Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				try {
 					writer.write(items);
 				}
@@ -186,9 +186,9 @@ public class TransactionalStaxEventItemWriterTests {
 		writer.close();
 		writer.open(executionContext);
 		try {
-			new TransactionTemplate(transactionManager).execute(new TransactionCallback() {
+			new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
                 @Override
-				public Object doInTransaction(TransactionStatus status) {
+				public Void doInTransaction(TransactionStatus status) {
 					try {
 						writer.write(items);
 					}
@@ -231,8 +231,7 @@ public class TransactionalStaxEventItemWriterTests {
 		}
 
         @Override
-		@SuppressWarnings("rawtypes")
-		public boolean supports(Class clazz) {
+		public boolean supports(Class<?> clazz) {
 			return true;
 		}
 	}

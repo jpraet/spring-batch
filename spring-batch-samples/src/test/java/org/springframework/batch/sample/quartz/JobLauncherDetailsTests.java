@@ -56,6 +56,7 @@ public class JobLauncherDetailsTests {
 	@Before
 	public void setUp() throws Exception {
 		details.setJobLauncher(new JobLauncher() {
+			@Override
 			public JobExecution run(org.springframework.batch.core.Job job, JobParameters jobParameters)
 					throws JobExecutionAlreadyRunningException, JobRestartException {
 				list.add(jobParameters);
@@ -63,6 +64,7 @@ public class JobLauncherDetailsTests {
 			}
 		});
 		details.setJobLocator(new JobLocator() {
+			@Override
 			public org.springframework.batch.core.Job getJob(String name) throws NoSuchJobException {
 				list.add(name);
 				return new StubJob("foo");
@@ -153,6 +155,7 @@ public class JobLauncherDetailsTests {
 		assertEquals(0, parameters.getParameters().size());
 	}
 
+	@SuppressWarnings("serial")
 	private final class StubJobExecutionContext extends JobExecutionContext {
 
 		private StubJobExecutionContext() {
@@ -169,20 +172,25 @@ public class JobLauncherDetailsTests {
 			this.name = name;
 		}
 
+		@Override
 		public void execute(JobExecution execution) {
 		}
 
+		@Override
 		public JobParametersIncrementer getJobParametersIncrementer() {
 			return null;
 		}
+		@Override
 		public JobParametersValidator getJobParametersValidator() {
 			return null;
 		}
 
+		@Override
 		public String getName() {
 			return name;
 		}
 
+		@Override
 		public boolean isRestartable() {
 			return false;
 		}

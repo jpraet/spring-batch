@@ -11,7 +11,8 @@ import java.util.Date;
  */
 public class MessageProcessor implements ItemProcessor<String, String> {
 
-    public String process(String message) throws Exception {
+    @Override
+	public String process(String message) throws Exception {
         return "Message: \"" + message + "\" processed on: " + new Date();
     }
 }

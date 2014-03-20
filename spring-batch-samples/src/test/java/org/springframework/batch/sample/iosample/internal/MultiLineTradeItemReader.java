@@ -36,6 +36,7 @@ public class MultiLineTradeItemReader implements ItemReader<Trade>, ItemStream {
 	/**
 	 * @see org.springframework.batch.item.ItemReader#read()
 	 */
+	@Override
 	public Trade read() throws Exception {
 		Trade t = null;
 
@@ -66,14 +67,17 @@ public class MultiLineTradeItemReader implements ItemReader<Trade>, ItemStream {
 		this.delegate = delegate;
 	}
 
+	@Override
 	public void close() throws ItemStreamException {
 		this.delegate.close();
 	}
 
+	@Override
 	public void open(ExecutionContext executionContext) throws ItemStreamException {
 		this.delegate.open(executionContext);
 	}
 
+	@Override
 	public void update(ExecutionContext executionContext) throws ItemStreamException {
 		this.delegate.update(executionContext);
 	}

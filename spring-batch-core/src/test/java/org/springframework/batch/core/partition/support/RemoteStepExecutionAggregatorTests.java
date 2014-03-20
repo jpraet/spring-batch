@@ -6,7 +6,6 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.StepExecution;
-import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.explore.support.MapJobExplorerFactoryBean;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
@@ -33,7 +32,7 @@ public class RemoteStepExecutionAggregatorTests {
 	public void init() throws Exception {
 		MapJobRepositoryFactoryBean factory = new MapJobRepositoryFactoryBean();
 		JobRepository jobRepository = factory.getObject();
-		aggregator.setJobExplorer((JobExplorer) new MapJobExplorerFactoryBean(factory).getObject());
+		aggregator.setJobExplorer(new MapJobExplorerFactoryBean(factory).getObject());
 		jobExecution = jobRepository.createJobExecution("job", new JobParameters());
 		result = jobExecution.createStepExecution("aggregate");
 		stepExecution1 = jobExecution.createStepExecution("foo:1");

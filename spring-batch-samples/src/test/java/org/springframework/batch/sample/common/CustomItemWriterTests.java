@@ -49,6 +49,7 @@ public class CustomItemWriterTests {
 
 		List<T> output = TransactionAwareProxyFactory.createTransactionalList();
 
+		@Override
 		public void write(List<? extends T> items) throws Exception {
 			output.addAll(items);
 		}

@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
-public class DerbyDataSourceFactoryBean extends AbstractFactoryBean {
+public class DerbyDataSourceFactoryBean extends AbstractFactoryBean<DataSource> {
 
 	private String dataDirectory = "derby-home";
 
@@ -15,7 +15,8 @@ public class DerbyDataSourceFactoryBean extends AbstractFactoryBean {
 		this.dataDirectory = dataDirectory;
 	}
 
-	protected Object createInstance() throws Exception {
+	@Override
+	protected DataSource createInstance() throws Exception {
 		File directory = new File(dataDirectory);
 		System.setProperty("derby.system.home", directory.getCanonicalPath());
 		System.setProperty("derby.storage.fileSyncTransactionLog", "true");
@@ -28,6 +29,7 @@ public class DerbyDataSourceFactoryBean extends AbstractFactoryBean {
 		return ds;
 	}
 
+	@Override
 	public Class<DataSource> getObjectType() {
 		return DataSource.class;
 	}

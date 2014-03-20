@@ -29,6 +29,7 @@ import org.springframework.batch.item.UnexpectedInputException;
  */
 public class InfiniteLoopReader implements ItemReader<Object> {
 
+	@Override
 	public Object read() throws Exception, UnexpectedInputException, ParseException {
 		return new Object();
 	}

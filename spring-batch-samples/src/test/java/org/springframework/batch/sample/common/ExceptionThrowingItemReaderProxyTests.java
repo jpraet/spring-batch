@@ -23,6 +23,7 @@ public class ExceptionThrowingItemReaderProxyTests {
 		RepeatSynchronizationManager.clear();
 	}
 	
+	@SuppressWarnings("serial")
 	@Test
 	public void testProcess() throws Exception {
 				

@@ -30,6 +30,7 @@ public class CustomerCreditIncreaseProcessor implements ItemProcessor<CustomerCr
 	
 	public static final BigDecimal FIXED_AMOUNT = new BigDecimal("5");
 
+	@Override
 	public CustomerCredit process(CustomerCredit item) throws Exception {
 		return item.increaseCreditBy(FIXED_AMOUNT);
 	}

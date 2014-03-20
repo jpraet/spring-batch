@@ -60,7 +60,7 @@ public class JobStepFunctionalTests {
 				.getJobParameters(PropertiesConverter
 						.stringToProperties("run.id(long)=1,parameter=true,run.date=20070122,input.file=classpath:data/fixedLengthImportJob/input/20070122.teststream.ImportTradeDataStep.txt")));
 
-		int after = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM TRADE");
+		int after = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM TRADE", Integer.class);
 		assertEquals(5, after);
 
 	}

@@ -16,6 +16,7 @@ public class CustomerFieldSetMapperTests extends AbstractFieldSetMapperTests {
 	private static final long REG_ID = 1;
 	private static final boolean VIP = true;
 
+	@Override
 	protected Object expectedDomainObject() {
 		Customer cs = new Customer();
 		cs.setBusinessCustomer(BUSINESS_CUSTOMER);
@@ -28,6 +29,7 @@ public class CustomerFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return cs;
 	}
 
+	@Override
 	protected FieldSet fieldSet() {
 		String[] tokens = new String[] { Customer.LINE_ID_NON_BUSINESS_CUST, FIRST_NAME, LAST_NAME, MIDDLE_NAME,
 				CustomerFieldSetMapper.TRUE_SYMBOL, String.valueOf(REG_ID), CustomerFieldSetMapper.TRUE_SYMBOL };
@@ -39,6 +41,7 @@ public class CustomerFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return new DefaultFieldSet(tokens, columnNames);
 	}
 
+	@Override
 	protected FieldSetMapper<Customer> fieldSetMapper() {
 		return new CustomerFieldSetMapper();
 	}

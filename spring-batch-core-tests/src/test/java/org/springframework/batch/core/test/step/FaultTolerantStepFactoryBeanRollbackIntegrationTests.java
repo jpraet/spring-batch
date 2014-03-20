@@ -143,7 +143,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 
 				writer.setFailures("1", "2", "3", "4", "5");
 
-				Step step = (Step) factory.getObject();
+				Step step = factory.getObject();
 
 				stepExecution = jobExecution.createStepExecution(factory.getName());
 				repository.add(stepExecution);
@@ -194,6 +194,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 			counter = -1;
 		}
 
+		@Override
 		public synchronized String read() throws Exception, UnexpectedInputException, ParseException {
 			counter++;
 			if (counter >= items.length) {
@@ -223,6 +224,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 		public List<String> getCommitted() {
 			return jdbcTemplate.query("SELECT MESSAGE from ERROR_LOG where STEP_NAME='written'",
 					new ParameterizedRowMapper<String>() {
+						@Override
 						public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 							return rs.getString(1);
 						}
@@ -234,6 +236,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 			jdbcTemplate.update("DELETE FROM ERROR_LOG where STEP_NAME='written'");
 		}
 
+		@Override
 		public void write(List<? extends String> items) throws Exception {
 			for (String item : items) {
 				written.add(item);
@@ -274,6 +277,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 		public List<String> getCommitted() {
 			return jdbcTemplate.query("SELECT MESSAGE from ERROR_LOG where STEP_NAME='processed'",
 					new ParameterizedRowMapper<String>() {
+						@Override
 						public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 							return rs.getString(1);
 						}
@@ -285,6 +289,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 			jdbcTemplate.update("DELETE FROM ERROR_LOG where STEP_NAME='processed'");
 		}
 
+		@Override
 		public String process(String item) throws Exception {
 			processed.add(item);
 			logger.debug("Processed item: " + item);

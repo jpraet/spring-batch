@@ -38,13 +38,13 @@ public class JobLauncherIntegrationTests {
 	@Test
 	public void testLaunchAndRelaunch() throws Exception {
 
-		int before = jdbcTemplate.queryForInt("select count(*) from BATCH_JOB_INSTANCE");
+		int before = jdbcTemplate.queryForObject("select count(*) from BATCH_JOB_INSTANCE", Integer.class);
 
 		JobExecution jobExecution = launch(true,0);
 		launch(false, jobExecution.getId());
 		launch(false, jobExecution.getId());
 
-		int after = jdbcTemplate.queryForInt("select count(*) from BATCH_JOB_INSTANCE");
+		int after = jdbcTemplate.queryForObject("select count(*) from BATCH_JOB_INSTANCE", Integer.class);
 		assertEquals(before+1, after);
 
 	}

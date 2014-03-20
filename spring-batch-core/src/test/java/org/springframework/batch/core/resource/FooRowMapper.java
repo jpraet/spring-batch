@@ -6,11 +6,10 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 
-@SuppressWarnings("rawtypes")
-public class FooRowMapper implements RowMapper {
+public class FooRowMapper implements RowMapper<Foo> {
 
 	@Override
-	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Foo mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 		Foo foo = new Foo();
 		foo.setId(rs.getInt(1));

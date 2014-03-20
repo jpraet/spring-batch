@@ -62,24 +62,24 @@ public class JsrStepContextFactoryBeanTests {
 
 	@Test
 	public void getObjectSingleThread() throws Exception {
-		StepSynchronizationManager.register(new StepExecution("step1", new JobExecution(5l), 3l));
+		StepSynchronizationManager.register(new StepExecution("step1", new JobExecution(5L), 3L));
 
 		StepContext context1 = factory.getObject();
 		StepContext context2 = factory.getObject();
 
 		assertTrue(context1 == context2);
-		assertEquals(3l, context1.getStepExecutionId());
+		assertEquals(3L, context1.getStepExecutionId());
 
 		StepSynchronizationManager.close();
 
-		StepSynchronizationManager.register(new StepExecution("step2", new JobExecution(5l), 2l));
+		StepSynchronizationManager.register(new StepExecution("step2", new JobExecution(5L), 2L));
 
 		StepContext context3 = factory.getObject();
 		StepContext context4 = factory.getObject();
 
 		assertTrue(context3 == context4);
 		assertTrue(context3 != context2);
-		assertEquals(2l, context3.getStepExecutionId());
+		assertEquals(2L, context3.getStepExecutionId());
 
 		StepSynchronizationManager.close();
 	}
@@ -91,13 +91,13 @@ public class JsrStepContextFactoryBeanTests {
 
 		when(propertyContext.getStepProperties("step3")).thenReturn(props);
 
-		StepSynchronizationManager.register(new StepExecution("step3", new JobExecution(5l), 3l));
+		StepSynchronizationManager.register(new StepExecution("step3", new JobExecution(5L), 3L));
 
 		StepContext context1 = factory.getObject();
 		StepContext context2 = factory.getObject();
 
 		assertTrue(context1 == context2);
-		assertEquals(3l, context1.getStepExecutionId());
+		assertEquals(3L, context1.getStepExecutionId());
 		assertEquals("value1", context1.getProperties().get("key1"));
 
 		StepSynchronizationManager.close();
@@ -118,7 +118,7 @@ public class JsrStepContextFactoryBeanTests {
 					try {
 						StepSynchronizationManager.register(new StepExecution("step" + count, new JobExecution(count)));
 						StepContext context = factory.getObject();
-						Thread.sleep(1000l);
+						Thread.sleep(1000L);
 						return context;
 					} catch (Throwable ignore) {
 						return null;
@@ -159,7 +159,7 @@ public class JsrStepContextFactoryBeanTests {
 					try {
 						StepSynchronizationManager.register(new StepExecution("step" + count, new JobExecution(count)));
 						StepContext context = factory.getObject();
-						Thread.sleep(1000l);
+						Thread.sleep(1000L);
 						return context;
 					} catch (Throwable ignore) {
 						return null;

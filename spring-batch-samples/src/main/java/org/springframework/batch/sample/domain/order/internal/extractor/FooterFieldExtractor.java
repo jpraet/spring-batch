@@ -9,6 +9,7 @@ import org.springframework.batch.sample.domain.order.Order;
  */
 public class FooterFieldExtractor implements FieldExtractor<Order> {
 
+	@Override
 	public Object[] extract(Order order) {
 		return new Object[] { "END_ORDER:", order.getTotalPrice() };
 	}

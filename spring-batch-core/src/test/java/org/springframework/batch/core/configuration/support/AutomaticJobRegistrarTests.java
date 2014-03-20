@@ -40,6 +40,7 @@ public class AutomaticJobRegistrarTests {
 		registrar.setJobLoader(jobLoader);
 	}
 
+	@SuppressWarnings("cast")
 	@Test
 	public void testOrderedImplemented() throws Exception {
 		
@@ -57,6 +58,7 @@ public class AutomaticJobRegistrarTests {
 				new ClassPathResource("org/springframework/batch/core/launch/support/job.xml"),
 				new ClassPathResource("org/springframework/batch/core/launch/support/job2.xml") };
 
+		@SuppressWarnings("resource")
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 		applicationContext.refresh();
 		setUpApplicationContextFactories(jobPaths, applicationContext);
@@ -79,6 +81,7 @@ public class AutomaticJobRegistrarTests {
 
 		Resource[] jobPaths = new Resource[] { new ClassPathResource(
 				"org/springframework/batch/core/launch/support/test-environment.xml") };
+		@SuppressWarnings("resource")
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 		applicationContext.refresh();
 		setUpApplicationContextFactories(jobPaths, applicationContext);
@@ -91,6 +94,7 @@ public class AutomaticJobRegistrarTests {
 
 		Resource[] jobPaths = new Resource[] { new ClassPathResource(
 				"org/springframework/batch/core/launch/support/2jobs.xml") };
+		@SuppressWarnings("resource")
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 		applicationContext.refresh();
 		setUpApplicationContextFactories(jobPaths, applicationContext);
@@ -104,6 +108,7 @@ public class AutomaticJobRegistrarTests {
 
 		Resource[] jobPaths = new Resource[] { new ClassPathResource(
 				"org/springframework/batch/core/launch/support/2jobs.xml") };
+		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"/org/springframework/batch/core/launch/support/test-environment-with-registry-and-auto-register.xml");
 		registrar.setApplicationContext(applicationContext);
@@ -156,6 +161,7 @@ public class AutomaticJobRegistrarTests {
 
 	}
 
+	@SuppressWarnings("resource")
 	@Test
 	public void testInitCalledOnContextRefreshed() throws Exception {
 
@@ -176,6 +182,7 @@ public class AutomaticJobRegistrarTests {
 
 		Resource[] jobPaths = new Resource[] { new ClassPathResource(
 				"org/springframework/batch/core/launch/support/2jobs.xml") };
+		@SuppressWarnings("resource")
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 		applicationContext.refresh();
 		setUpApplicationContextFactories(jobPaths, applicationContext);

@@ -136,6 +136,7 @@ public class FileUtilsTests {
 	@Test
 	public void testBadFile(){
 
+		@SuppressWarnings("serial")
 		File file = new File("new file"){
             @Override
 			public boolean createNewFile() throws IOException {
@@ -155,6 +156,7 @@ public class FileUtilsTests {
 	@Test
 	public void testCouldntCreateFile(){
 
+		@SuppressWarnings("serial")
 		File file = new File("new file"){
 			
 			@Override

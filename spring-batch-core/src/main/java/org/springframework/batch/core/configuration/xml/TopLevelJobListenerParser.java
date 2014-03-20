@@ -23,7 +23,7 @@ public class TopLevelJobListenerParser extends AbstractSingleBeanDefinitionParse
 	}
 
 	@Override
-	protected Class<? extends AbstractListenerFactoryBean> getBeanClass(Element element) {
+	protected Class<? extends AbstractListenerFactoryBean<?>> getBeanClass(Element element) {
 		return jobListenerParser.getBeanClass();
 	}
 

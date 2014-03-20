@@ -31,7 +31,7 @@ import org.springframework.jmx.export.notification.NotificationPublisherAware;
  * @author Dave Syer
  * @since 1.0
  */
-public class JobExecutionNotificationPublisher implements ApplicationListener, NotificationPublisherAware {
+public class JobExecutionNotificationPublisher implements ApplicationListener<SimpleMessageApplicationEvent>, NotificationPublisherAware {
 
 	protected static final Log logger = LogFactory.getLog(JobExecutionNotificationPublisher.class);
 
@@ -44,6 +44,7 @@ public class JobExecutionNotificationPublisher implements ApplicationListener, N
 	 * 
 	 * @see org.springframework.jmx.export.notification.NotificationPublisherAware#setNotificationPublisher(org.springframework.jmx.export.notification.NotificationPublisher)
 	 */
+	@Override
 	public void setNotificationPublisher(NotificationPublisher notificationPublisher) {
 		this.notificationPublisher = notificationPublisher;
 	}
@@ -55,12 +56,11 @@ public class JobExecutionNotificationPublisher implements ApplicationListener, N
 	 * 
 	 * @see ApplicationListener#onApplicationEvent(ApplicationEvent) 
 	 */
-	public void onApplicationEvent(ApplicationEvent applicationEvent) {
-		if (applicationEvent instanceof SimpleMessageApplicationEvent) {
-			String message = applicationEvent.toString();
-			logger.info(message);
-			publish(message);
-		}
+	@Override
+	public void onApplicationEvent(SimpleMessageApplicationEvent applicationEvent) {
+		String message = applicationEvent.toString();
+		logger.info(message);
+		publish(message);
 	}
 
 	/**

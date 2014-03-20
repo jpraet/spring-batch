@@ -104,7 +104,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			
 			if (i%100==0) {
 				logger.info("Starting step: "+i);
-				repository = new MapJobRepositoryFactoryBean(transactionManager).getJobRepository();
+				repository = new MapJobRepositoryFactoryBean(transactionManager).getObject();
 				factory.setJobRepository(repository);
 				jobExecution = repository.createJobExecution("vanillaJob", new JobParameters());
 			}
@@ -121,7 +121,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 
 			try {
 
-				Step step = (Step) factory.getObject();
+				Step step = factory.getObject();
 
 				stepExecution = jobExecution.createStepExecution(factory.getName());
 				repository.add(stepExecution);
@@ -162,6 +162,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			counter = -1;
 		}
 
+		@Override
 		public synchronized String read() throws Exception, UnexpectedInputException, ParseException {
 			counter++;
 			if (counter >= items.length) {
@@ -192,6 +193,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			written.clear();
 		}
 
+		@Override
 		public void write(List<? extends String> items) throws Exception {
 			for (String item : items) {
 				logger.trace("Writing: "+item);
@@ -221,6 +223,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			processed.clear();
 		}
 
+		@Override
 		public String process(String item) throws Exception {
 			processed.add(item);
 			logger.debug("Processed item: "+item);

@@ -8,6 +8,7 @@ import org.springframework.batch.core.job.flow.JobExecutionDecider;
 
 public class SkipCheckingDecider implements JobExecutionDecider {
 
+	@Override
 	public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
 		if (!stepExecution.getExitStatus().getExitCode().equals(
 				ExitStatus.FAILED.getExitCode())

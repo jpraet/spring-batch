@@ -7,7 +7,7 @@ import org.codehaus.jackson.map.MappingJsonFactory;
 import org.springframework.batch.item.file.LineMapper;
 
 /**
- * Interpret a line as a Json object and parse it up to a Map. The line should be a standard Json object, starting with
+ * Interpret a line as a JSON object and parse it up to a Map. The line should be a standard JSON object, starting with
  * "{" and ending with "}" and composed of <code>name:value</code> pairs separated by commas. Whitespace is ignored,
  * e.g.
  * 
@@ -15,7 +15,7 @@ import org.springframework.batch.item.file.LineMapper;
  * { "foo" : "bar", "value" : 123 }
  * </pre>
  * 
- * The values can also be Json objects (which are converted to maps):
+ * The values can also be JSON objects (which are converted to maps):
  * 
  * <pre>
  * { "foo": "bar", "map": { "one": 1, "two": 2}}

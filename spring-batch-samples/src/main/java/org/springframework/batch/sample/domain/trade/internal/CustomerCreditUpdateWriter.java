@@ -27,6 +27,7 @@ public class CustomerCreditUpdateWriter implements ItemWriter<CustomerCredit> {
 
 	private CustomerCreditDao dao;
 
+	@Override
 	public void write(List<? extends CustomerCredit> customerCredits) throws Exception {
 		for (CustomerCredit customerCredit : customerCredits) {
 			if (customerCredit.getCredit().doubleValue() > creditFilter) {

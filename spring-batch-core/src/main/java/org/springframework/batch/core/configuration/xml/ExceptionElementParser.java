@@ -11,15 +11,14 @@ import org.w3c.dom.Element;
 
 public class ExceptionElementParser {
 
-	@SuppressWarnings("unchecked")
-	public ManagedMap parse(Element element, ParserContext parserContext, String exceptionListName) {
+	public ManagedMap<TypedStringValue, Boolean> parse(Element element, ParserContext parserContext, String exceptionListName) {
 		List<Element> children = DomUtils.getChildElementsByTagName(element, exceptionListName);
 		if (children.size() == 1) {
-			ManagedMap map = new ManagedMap();
+			ManagedMap<TypedStringValue, Boolean> map = new ManagedMap<TypedStringValue, Boolean>();
 			Element exceptionClassesElement = children.get(0);
 			addExceptionClasses("include", true, exceptionClassesElement, map, parserContext);
 			addExceptionClasses("exclude", false, exceptionClassesElement, map, parserContext);
-			map.put(ForceRollbackForWriteSkipException.class, true);
+			map.put(new TypedStringValue(ForceRollbackForWriteSkipException.class.getName(), Class.class), true);
 			return map;
 		}
 		else if (children.size() > 1) {
@@ -30,9 +29,8 @@ public class ExceptionElementParser {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void addExceptionClasses(String elementName, boolean include, Element exceptionClassesElement,
-			ManagedMap map, ParserContext parserContext) {
+			ManagedMap<TypedStringValue, Boolean> map, ParserContext parserContext) {
 		for (Element child : DomUtils.getChildElementsByTagName(exceptionClassesElement, elementName)) {
 			String className = child.getAttribute("class");
 			map.put(new TypedStringValue(className, Class.class), include);

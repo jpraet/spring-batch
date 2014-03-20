@@ -4,8 +4,6 @@
 package org.springframework.batch.item.database.support;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.LinkedHashMap;

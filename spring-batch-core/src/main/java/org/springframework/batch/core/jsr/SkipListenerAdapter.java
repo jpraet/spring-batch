@@ -7,7 +7,7 @@ import javax.batch.operations.BatchRuntimeException;
 
 import org.springframework.batch.core.SkipListener;
 
-import java.util.List;
+import java.util.Collections;
 
 public class SkipListenerAdapter<T, S> implements SkipListener<T, S> {
 	private final SkipReadListener skipReadDelegate;
@@ -35,7 +35,7 @@ public class SkipListenerAdapter<T, S> implements SkipListener<T, S> {
 	public void onSkipInWrite(S item, Throwable t) {
 		if(skipWriteDelegate != null && t instanceof Exception) {
 			try {
-				skipWriteDelegate.onSkipWriteItem((List<Object>) item, (Exception) t);
+				skipWriteDelegate.onSkipWriteItem(Collections.<Object>singletonList(item), (Exception) t);
 			} catch (Exception e) {
 				throw new BatchRuntimeException(e);
 			}

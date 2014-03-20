@@ -98,7 +98,7 @@ public class MapJobExecutionDaoTests extends AbstractJobExecutionDaoTests {
 
 		// Ensure no general exceptions arose
 		if(exception.get() != null) {
-			throw new RuntimeException("Excepion occurred under high concurrency usage", exception.get());
+			throw new RuntimeException("Exception occurred under high concurrency usage", exception.get());
 		}
 
 		// Validate the ids: we'd expect one of these three things to fail

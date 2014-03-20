@@ -90,6 +90,7 @@ public class CustomerFilterJobFunctionalTests {
 		activeRow = 0;
         jdbcTemplate.query(GET_CUSTOMERS, new RowCallbackHandler() {
 
+			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Customer customer = customers.get(activeRow++);
 				assertEquals(customer.getName(), rs.getString(1));

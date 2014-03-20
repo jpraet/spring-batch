@@ -13,6 +13,7 @@ public class HeaderFieldSetMapperTests extends AbstractFieldSetMapperTests {
 	private static final long ORDER_ID = 1;
 	private static final String DATE = "2007-01-01";
 
+	@Override
 	protected Object expectedDomainObject() {
 		Order order = new Order();
 		Calendar calendar = Calendar.getInstance();
@@ -23,6 +24,7 @@ public class HeaderFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return order;
 	}
 
+	@Override
 	protected FieldSet fieldSet() {
 		String[] tokens = new String[] { String.valueOf(ORDER_ID), DATE };
 		String[] columnNames = new String[] { HeaderFieldSetMapper.ORDER_ID_COLUMN,
@@ -30,6 +32,7 @@ public class HeaderFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return new DefaultFieldSet(tokens, columnNames);
 	}
 
+	@Override
 	protected FieldSetMapper<Order> fieldSetMapper() {
 		return new HeaderFieldSetMapper();
 	}

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
 
 import org.apache.commons.logging.Log;
@@ -128,6 +127,7 @@ public class RemoteLauncherTests {
 	public static void setUp() throws Exception {
 		System.setProperty("com.sun.management.jmxremote", "");
 		thread = new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					JobRegistryBackgroundJobRunner.main("adhoc-job-launcher-context.xml", "jobs/adhocLoopJob.xml");
@@ -184,7 +184,7 @@ public class RemoteLauncherTests {
 		MBeanProxyFactoryBean factory = new MBeanProxyFactoryBean();
 		factory.setObjectName(objectName);
 		factory.setProxyInterface(interfaceType);
-		factory.setServer((MBeanServerConnection) connectionFactory.getObject());
+		factory.setServer(connectionFactory.getObject());
 		factory.afterPropertiesSet();
 		return factory.getObject();
 	}

@@ -65,6 +65,7 @@ public class JdbcCustomerDebitDaoTests {
 		//verify customer credit
         jdbcTemplate.query("SELECT name, credit FROM CUSTOMER WHERE name = 'testName'",
 				new RowCallbackHandler() {
+					@Override
 					public void processRow(ResultSet rs) throws SQLException {
 						assertEquals(95, rs.getLong("credit"));
 					}

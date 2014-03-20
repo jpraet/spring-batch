@@ -33,6 +33,7 @@ public class StagingItemProcessor<T> implements ItemProcessor<ProcessIndicatorIt
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(jdbcTemplate, "Either jdbcTemplate or dataSource must be set");
 	}
@@ -41,6 +42,7 @@ public class StagingItemProcessor<T> implements ItemProcessor<ProcessIndicatorIt
 	 * Use the technical identifier to mark the input row as processed and
 	 * return unwrapped item.
 	 */
+	@Override
 	public T process(ProcessIndicatorItemWrapper<T> wrapper) throws Exception {
 
 		int count = jdbcTemplate.update("UPDATE BATCH_STAGING SET PROCESSED=? WHERE ID=? AND PROCESSED=?",

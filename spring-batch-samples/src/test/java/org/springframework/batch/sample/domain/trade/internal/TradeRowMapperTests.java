@@ -10,14 +10,15 @@ import org.springframework.batch.sample.domain.trade.Trade;
 import org.springframework.batch.sample.support.AbstractRowMapperTests;
 import org.springframework.jdbc.core.RowMapper;
 
-public class TradeRowMapperTests extends AbstractRowMapperTests {
+public class TradeRowMapperTests extends AbstractRowMapperTests<Trade> {
 
 	private static final String ISIN = "jsgk342";
 	private static final long QUANTITY = 0;
 	private static final BigDecimal PRICE = new BigDecimal(1.1);
 	private static final String CUSTOMER = "Martin Hrancok";
 
-	protected Object expectedDomainObject() {
+	@Override
+	protected Trade expectedDomainObject() {
 		Trade trade = new Trade();
 		trade.setIsin(ISIN);
 		trade.setQuantity(QUANTITY);
@@ -26,10 +27,12 @@ public class TradeRowMapperTests extends AbstractRowMapperTests {
 		return trade;
 	}
 
-	protected RowMapper rowMapper() {
+	@Override
+	protected RowMapper<Trade> rowMapper() {
 		return new TradeRowMapper();
 	}
 
+	@Override
 	protected void setUpResultSetMock(ResultSet rs) throws SQLException {
 		when(rs.getLong(TradeRowMapper.ID_COLUMN)).thenReturn(12L);
 		when(rs.getString(TradeRowMapper.ISIN_COLUMN)).thenReturn(ISIN);

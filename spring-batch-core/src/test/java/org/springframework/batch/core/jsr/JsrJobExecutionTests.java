@@ -29,7 +29,7 @@ public class JsrJobExecutionTests {
 
 		execution.setId(5L);
 		execution.setCreateTime(new Date(0));
-		execution.setEndTime(new Date(999999999l));
+		execution.setEndTime(new Date(999999999L));
 		execution.setExitStatus(new ExitStatus("exit status"));
 		execution.setLastUpdated(new Date(12345));
 		execution.setStartTime(new Date(98765));
@@ -48,7 +48,7 @@ public class JsrJobExecutionTests {
 	public void testGetBasicValues() {
 		assertEquals(javax.batch.runtime.BatchStatus.FAILED, adapter.getBatchStatus());
 		assertEquals(new Date(0), adapter.getCreateTime());
-		assertEquals(new Date(999999999l), adapter.getEndTime());
+		assertEquals(new Date(999999999L), adapter.getEndTime());
 		assertEquals(5L, adapter.getExecutionId());
 		assertEquals("exit status", adapter.getExitStatus());
 		assertEquals("job name", adapter.getJobName());

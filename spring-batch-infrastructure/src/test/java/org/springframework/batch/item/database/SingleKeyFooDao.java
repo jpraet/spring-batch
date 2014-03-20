@@ -12,9 +12,9 @@ public class SingleKeyFooDao extends JdbcDaoSupport implements FooDao {
     @Override
 	public Foo getFoo(Object key){
 
-		RowMapper fooMapper = new RowMapper(){
+		RowMapper<Foo> fooMapper = new RowMapper<Foo>(){
             @Override
-			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public Foo mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Foo foo = new Foo();
 				foo.setId(rs.getInt(1));
 				foo.setName(rs.getString(2));
@@ -23,7 +23,7 @@ public class SingleKeyFooDao extends JdbcDaoSupport implements FooDao {
 			}
 		};
 
-		return (Foo)getJdbcTemplate().query("SELECT ID, NAME, VALUE from T_FOOS where ID = ?",
+		return getJdbcTemplate().query("SELECT ID, NAME, VALUE from T_FOOS where ID = ?",
 				new Object[] {key}, fooMapper).get(0);
 
 	}

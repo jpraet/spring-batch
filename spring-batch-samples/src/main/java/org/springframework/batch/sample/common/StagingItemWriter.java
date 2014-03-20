@@ -92,7 +92,7 @@ public class StagingItemWriter<T> extends JdbcDaoSupport implements StepExecutio
 				long jobId = stepExecution.getJobExecution().getJobId();
 
 				Assert.state(itemIterator.nextIndex() == i,
-						"Item ordering must be preserved in batch sql update");
+						"Item ordering must be preserved in batch SQL update");
 
 				byte[] blob = SerializationUtils.serialize(itemIterator.next());
 

@@ -82,6 +82,7 @@ public class JdbcPlayerDaoIntegrationTests {
 
         jdbcTemplate.query(GET_PLAYER, new RowCallbackHandler(){
 
+			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				assertEquals(rs.getString("PLAYER_ID"), "AKFJDL00");
 				assertEquals(rs.getString("LAST_NAME"), "Doe");

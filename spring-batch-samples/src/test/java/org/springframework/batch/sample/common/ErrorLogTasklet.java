@@ -31,6 +31,7 @@ public class ErrorLogTasklet implements Tasklet, StepExecutionListener {
 
 	private String stepName;
 
+	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Assert.notNull(this.stepName, "Step name not set.  Either this class was not registered as a listener "
 				+ "or the key 'stepName' was not found in the Job's ExecutionContext.");
@@ -58,6 +59,7 @@ public class ErrorLogTasklet implements Tasklet, StepExecutionListener {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	@Override
 	public void beforeStep(StepExecution stepExecution) {
 		this.jobName = stepExecution.getJobExecution().getJobInstance().getJobName().trim();
 		this.stepName = (String) stepExecution.getJobExecution().getExecutionContext().get("stepName");
@@ -65,6 +67,7 @@ public class ErrorLogTasklet implements Tasklet, StepExecutionListener {
 		stepExecution.getJobExecution().getExecutionContext().remove("stepName");
 	}
 
+	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		return null;
 	}

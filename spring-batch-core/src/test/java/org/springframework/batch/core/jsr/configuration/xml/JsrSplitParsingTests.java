@@ -46,7 +46,7 @@ public class JsrSplitParsingTests {
 
 	@Test
 	public void test() throws Exception {
-		javax.batch.runtime.JobExecution execution = runJob("JsrSplitParsingTests-context", null, 10000l);
+		javax.batch.runtime.JobExecution execution = runJob("JsrSplitParsingTests-context", null, 10000L);
 		assertEquals(javax.batch.runtime.BatchStatus.COMPLETED, execution.getBatchStatus());
 		assertEquals("COMPLETED", execution.getExitStatus());
 
@@ -57,7 +57,7 @@ public class JsrSplitParsingTests {
 	@Test
 	public void testOneFlowInSplit() {
 		try {
-			new ClassPathXmlApplicationContext("/org/springframework/batch/core/jsr/configuration/xml/invalid-split-context.xml");
+			new ClassPathXmlApplicationContext("/org/springframework/batch/core/jsr/configuration/xml/invalid-split-context.xml.invalid");
 		} catch (BeanDefinitionParsingException bdpe) {
 			assertTrue(bdpe.getMessage().contains("A <split/> must contain at least two 'flow' elements."));
 			return;

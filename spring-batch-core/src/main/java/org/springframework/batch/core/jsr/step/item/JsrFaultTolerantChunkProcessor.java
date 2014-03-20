@@ -59,7 +59,7 @@ public class JsrFaultTolerantChunkProcessor<I,O> extends JsrChunkProcessor<I, O>
 	private ChunkMonitor chunkMonitor = new ChunkMonitor();
 	private boolean hasProcessor = false;
 
-	public JsrFaultTolerantChunkProcessor(ItemReader<I> reader, ItemProcessor<I,O> processor, ItemWriter<O> writer, RepeatOperations repeatTemplate, BatchRetryTemplate batchRetryTemplate) {
+	public JsrFaultTolerantChunkProcessor(ItemReader<? extends I> reader, ItemProcessor<? super I, ? extends O> processor, ItemWriter<? super O> writer, RepeatOperations repeatTemplate, BatchRetryTemplate batchRetryTemplate) {
 		super(reader, processor, writer, repeatTemplate);
 		hasProcessor = processor != null;
 		this.batchRetryTemplate = batchRetryTemplate;
@@ -298,10 +298,12 @@ public class JsrFaultTolerantChunkProcessor<I,O> extends JsrChunkProcessor<I, O>
 					doPersist(contribution, chunk);
 				}
 				catch (Exception e) {
-					if(shouldSkip(skipPolicy, e, contribution.getStepSkipCount())) {
-						getListener().onSkipInWrite(chunk.getItems(), e);
+					if (shouldSkip(skipPolicy, e, contribution.getStepSkipCount())) {
+						for (O item : chunk.getItems()) {
+							getListener().onSkipInWrite(item, e);
+						}
 					} else {
-						getListener().onRetryWriteException(chunk.getItems(), e);
+						getListener().onRetryWriteException((List<Object>) chunk.getItems(), e);
 
 						if (rollbackClassifier.classify(e)) {
 							throw e;

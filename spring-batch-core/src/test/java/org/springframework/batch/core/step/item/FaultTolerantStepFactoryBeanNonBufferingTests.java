@@ -1,7 +1,6 @@
 package org.springframework.batch.core.step.item;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -79,7 +78,7 @@ public class FaultTolerantStepFactoryBeanNonBufferingTests {
 		skipListener.onSkipInWrite("4", exception);
 
 		factory.setListeners(new SkipListener[] { skipListener });
-		Step step = (Step) factory.getObject();
+		Step step = factory.getObject();
 
 		StepExecution stepExecution = new StepExecution(step.getName(), jobExecution);
 		step.execute(stepExecution);

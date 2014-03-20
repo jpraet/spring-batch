@@ -39,11 +39,10 @@ public abstract class AbstractListenerParser {
 		return builder.getBeanDefinition();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
 		builder.addPropertyValue("delegate", parseListenerElement(element, parserContext, builder.getRawBeanDefinition()));
 
-		ManagedMap metaDataMap = new ManagedMap();
+		ManagedMap<String, String> metaDataMap = new ManagedMap<String, String>();
 		for (String metaDataPropertyName : getMethodNameAttributes()) {
 			String listenerMethod = element.getAttribute(metaDataPropertyName);
 			if (StringUtils.hasText(listenerMethod)) {
@@ -53,7 +52,6 @@ public abstract class AbstractListenerParser {
 		builder.addPropertyValue("metaDataMap", metaDataMap);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static BeanMetadataElement parseListenerElement(Element element, ParserContext parserContext, BeanDefinition enclosing) {
 		String listenerRef = element.getAttribute(REF_ATTR);
 		List<Element> beanElements = DomUtils.getChildElementsByTagName(element, BEAN_ELE);
@@ -119,7 +117,7 @@ public abstract class AbstractListenerParser {
 		return methodNameAttributes;
 	}
 
-	protected abstract Class<? extends AbstractListenerFactoryBean> getBeanClass();
+	protected abstract Class<? extends AbstractListenerFactoryBean<?>> getBeanClass();
 
 	protected abstract ListenerMetaData[] getMetaDataValues();
 

@@ -3,17 +3,9 @@ package org.springframework.batch.item.file;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.batch.item.ExecutionContext;
-import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ResourceAware;
-import org.springframework.batch.item.file.mapping.PassThroughLineMapper;
-import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Comparator;
 
 import static org.junit.Assert.*;

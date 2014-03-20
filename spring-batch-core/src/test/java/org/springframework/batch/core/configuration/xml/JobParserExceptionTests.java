@@ -16,7 +16,7 @@ public class JobParserExceptionTests {
 	public void testUnreachableStep() {
 		try {
 			new ClassPathXmlApplicationContext(
-					"org/springframework/batch/core/configuration/xml/JobParserUnreachableStepTests-context.xml");
+					"org/springframework/batch/core/configuration/xml/JobParserUnreachableStepTests-context.xml.invalid");
 			fail("Error expected");
 		}
 		catch (BeanDefinitionParsingException e) {
@@ -28,7 +28,7 @@ public class JobParserExceptionTests {
 	public void testUnreachableStepInFlow() {
 		try {
 			new ClassPathXmlApplicationContext(
-					"org/springframework/batch/core/configuration/xml/JobParserUnreachableStepInFlowTests-context.xml");
+					"org/springframework/batch/core/configuration/xml/JobParserUnreachableStepInFlowTests-context.xml.invalid");
 			fail("Error expected");
 		}
 		catch (BeanDefinitionParsingException e) {
@@ -53,7 +53,7 @@ public class JobParserExceptionTests {
 	public void testWrongSchemaInRoot() {
 		try {
 			new ClassPathXmlApplicationContext(
-					"org/springframework/batch/core/configuration/xml/JobParserWrongSchemaInRootTests-context.xml");
+					"org/springframework/batch/core/configuration/xml/JobParserWrongSchemaInRootTests-context.xml.invalid");
 			fail("Error expected");
 		}
 		catch (BeanDefinitionParsingException e) {

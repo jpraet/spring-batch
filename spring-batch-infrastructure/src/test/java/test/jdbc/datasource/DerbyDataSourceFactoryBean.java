@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
-public class DerbyDataSourceFactoryBean extends AbstractFactoryBean {
+public class DerbyDataSourceFactoryBean extends AbstractFactoryBean<DataSource> {
 
 	private static Log logger = LogFactory.getLog(DerbyDataSourceFactoryBean.class);
 
@@ -20,7 +20,7 @@ public class DerbyDataSourceFactoryBean extends AbstractFactoryBean {
 	}
 
     @Override
-	protected Object createInstance() throws Exception {
+	protected DataSource createInstance() throws Exception {
 		File directory = new File(dataDirectory);
 		System.setProperty("derby.system.home", directory.getCanonicalPath());
 		System.setProperty("derby.storage.fileSyncTransactionLog", "true");

@@ -19,7 +19,7 @@ import org.springframework.core.io.support.ResourceArrayPropertyEditor;
  * <br/>
  * <br/>
  * 
- * Thread safe between calls to {@link #open(ExecutionContext)}. The
+ * Thread-safe between calls to {@link #open(ExecutionContext)}. The
  * {@link ExecutionContext} is not accurate in a multi-threaded environment, so
  * do not rely on that data for restart (i.e. always open with a fresh context).
  * 

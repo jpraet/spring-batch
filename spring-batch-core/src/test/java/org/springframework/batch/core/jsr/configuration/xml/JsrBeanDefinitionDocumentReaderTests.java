@@ -40,6 +40,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 	private ErrorHandler errorHandler = new SimpleSaxErrorHandler(logger);
 
 	@Test
+	@SuppressWarnings("resource")
 	public void testGetJobParameters() {
 		Properties jobParameters = new Properties();
 		jobParameters.setProperty("jobParameter1", "jobParameter1Value");
@@ -65,6 +66,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 	public void testGetJobProperties() {
 		Document document = getDocument("/META-INF/batch-jobs/jsrPropertyPreparseTestJob.xml");
 
+		@SuppressWarnings("resource")
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext();
 		JsrBeanDefinitionDocumentReader documentReader = new JsrBeanDefinitionDocumentReader(applicationContext);
 		documentReader.initProperties(document.getDocumentElement());
@@ -84,6 +86,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 		jobParameters.setProperty("jobParameter2", "#{jobProperties['jobProperty2']}");
 		jobParameters.setProperty("jobParameter3", "#{jobParameters['jobParameter1']}");
 
+		@SuppressWarnings("resource")
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext(jobParameters);
 		applicationContext.setValidating(false);
 		applicationContext.load(new ClassPathResource("baseContext.xml"),
@@ -110,6 +113,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 		Properties jobParameters = new Properties();
 		jobParameters.setProperty("file.name", "myfile.txt");
 
+		@SuppressWarnings("resource")
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext(jobParameters);
 		applicationContext.setValidating(false);
 		applicationContext.load(new ClassPathResource("baseContext.xml"),
@@ -130,6 +134,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 		assertEquals("myfile.txt", resolvedProperties.getProperty("jobProperty3"));
 	}
 
+	@SuppressWarnings("resource")
 	@Test
 	public void testGenerationOfBeanDefinitionsForMultipleReferences() throws Exception {
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext(new Properties());
@@ -185,6 +190,7 @@ public class JsrBeanDefinitionDocumentReaderTests {
 	}
 
 	@Test
+	@SuppressWarnings("resource")
 	public void testGenerationOfSpringBeanDefinitionsForMultipleReferences() {
 		JsrXmlApplicationContext applicationContext = new JsrXmlApplicationContext(new Properties());
 		applicationContext.setValidating(false);

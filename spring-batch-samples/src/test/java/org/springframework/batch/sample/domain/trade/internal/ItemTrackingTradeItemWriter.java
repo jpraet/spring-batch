@@ -39,6 +39,7 @@ public class ItemTrackingTradeItemWriter implements ItemWriter<Trade> {
 		this.items.clear();
 	}
 
+	@Override
 	public void write(List<? extends Trade> items) throws Exception {
 		List<Trade> newItems = new ArrayList<Trade>();
 		for (Trade t : items) {

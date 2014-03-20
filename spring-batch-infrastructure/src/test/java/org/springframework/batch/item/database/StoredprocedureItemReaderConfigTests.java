@@ -54,9 +54,9 @@ public class StoredprocedureItemReaderConfigTests {
 		reader.setProcedureName("foo_bar");
 		final ExecutionContext ec = new ExecutionContext();
 		tt.execute(
-				new TransactionCallback() {
+				new TransactionCallback<Void>() {
                     @Override
-					public Object doInTransaction(TransactionStatus status) {
+					public Void doInTransaction(TransactionStatus status) {
 						reader.open(ec);
 						reader.close();
 						return null;
@@ -89,9 +89,9 @@ public class StoredprocedureItemReaderConfigTests {
 		reader.setProcedureName("foo_bar");
 		final ExecutionContext ec = new ExecutionContext();
 		tt.execute(
-				new TransactionCallback() {
+				new TransactionCallback<Void>() {
                     @Override
-					public Object doInTransaction(TransactionStatus status) {
+					public Void doInTransaction(TransactionStatus status) {
 						reader.open(ec);
 						reader.close();
 						return null;
@@ -135,9 +135,9 @@ public class StoredprocedureItemReaderConfigTests {
 		reader.setRefCursorPosition(3);
 		final ExecutionContext ec = new ExecutionContext();
 		tt.execute(
-				new TransactionCallback() {
+				new TransactionCallback<Void>() {
                     @Override
-					public Object doInTransaction(TransactionStatus status) {
+					public Void doInTransaction(TransactionStatus status) {
 						reader.open(ec);
 						reader.close();
 						return null;

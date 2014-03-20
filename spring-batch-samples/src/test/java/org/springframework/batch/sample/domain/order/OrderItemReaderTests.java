@@ -28,14 +28,14 @@ public class OrderItemReaderTests {
 	@Before
 	public void setUp() {
 
-		input = (ItemReader<FieldSet>) mock(ItemReader.class);
+		input = mock(ItemReader.class);
 
 		provider = new OrderItemReader();
 		provider.setFieldSetReader(input);
 	}
 
 	/*
-	 * OrderItemProvider is resposible for retrieving validated value object
+	 * OrderItemProvider is responsible for retrieving validated value object
 	 * from input source. OrderItemProvider.next(): - reads lines from the input
 	 * source - returned as fieldsets - pass fieldsets to the mapper - mapper
 	 * will create value object - pass value object to validator - returns
@@ -112,7 +112,7 @@ public class OrderItemReaderTests {
 		Order o = (Order) result;
 		assertEquals(o, order);
 		assertEquals(o.getCustomer(), customer);
-		// is it non-bussines customer
+		// is it non-business customer
 		assertFalse(o.getCustomer().isBusinessCustomer());
 		assertEquals(o.getBillingAddress(), billing);
 		assertEquals(o.getShippingAddress(), shipping);

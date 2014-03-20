@@ -20,15 +20,16 @@ public class CustomerUpdateProcessorTests {
 		trade.setCustomer("testCustomerName");
 		trade.setPrice(new BigDecimal(123.0));
 		
-		//create dao
+		//create DAO
 		CustomerDebitDao dao = new CustomerDebitDao() {
+			@Override
 			public void write(CustomerDebit customerDebit) {
 				assertEquals("testCustomerName", customerDebit.getName());
 				assertEquals(new BigDecimal(123.0), customerDebit.getDebit());
 			}			
 		};
 		
-		//create processor and set dao
+		//create processor and set DAO
 		CustomerUpdateWriter processor = new CustomerUpdateWriter();
 		processor.setDao(dao);
 		

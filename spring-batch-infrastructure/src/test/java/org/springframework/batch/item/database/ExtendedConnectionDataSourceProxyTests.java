@@ -113,7 +113,6 @@ public class ExtendedConnectionDataSourceProxyTests {
 	}
 
 	@Test
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testSupressOfCloseWithJdbcTemplate() throws Exception {
 
 		Connection con = mock(Connection.class);
@@ -181,21 +180,21 @@ public class ExtendedConnectionDataSourceProxyTests {
 
 		Connection connection = DataSourceUtils.getConnection(csds);
 		csds.startCloseSuppression(connection);
-		tt.execute(new TransactionCallback() {
+		tt.execute(new TransactionCallback<Void>() {
 			@Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				template.queryForList("select baz from bar");
 				template.queryForList("select foo from bar");
 				return null;
 			}
 		});
-		tt.execute(new TransactionCallback() {
+		tt.execute(new TransactionCallback<Void>() {
 			@Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				template.queryForList("select ham from foo");
-				tt2.execute(new TransactionCallback() {
+				tt2.execute(new TransactionCallback<Void>() {
 					@Override
-					public Object doInTransaction(TransactionStatus status) {
+					public Void doInTransaction(TransactionStatus status) {
 						template.queryForList("select 1 from eggs");
 						return null;
 					}
@@ -204,9 +203,9 @@ public class ExtendedConnectionDataSourceProxyTests {
 				return null;
 			}
 		});
-		tt.execute(new TransactionCallback() {
+		tt.execute(new TransactionCallback<Void>() {
 			@Override
-			public Object doInTransaction(TransactionStatus status) {
+			public Void doInTransaction(TransactionStatus status) {
 				template.queryForList("select spam from ham");
 				return null;
 			}
@@ -335,6 +334,7 @@ public class ExtendedConnectionDataSourceProxyTests {
 		/**
 		 * Added due to JDK 7.
 		 */
+		@SuppressWarnings("unused")
 		public Logger getParentLogger() throws SQLFeatureNotSupportedException {
 			throw new SQLFeatureNotSupportedException();
 		}

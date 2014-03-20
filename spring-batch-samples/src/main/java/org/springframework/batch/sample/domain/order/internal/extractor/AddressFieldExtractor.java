@@ -10,6 +10,7 @@ import org.springframework.batch.sample.domain.order.Order;
  */
 public class AddressFieldExtractor implements FieldExtractor<Order> {
 
+	@Override
 	public Object[] extract(Order order) {
 		Address address = order.getBillingAddress();
 		return new Object[] { "ADDRESS:", address.getAddrLine1(), address.getCity(), address.getZipCode() };

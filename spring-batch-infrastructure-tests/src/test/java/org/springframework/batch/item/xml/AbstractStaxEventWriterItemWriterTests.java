@@ -41,6 +41,7 @@ public abstract class AbstractStaxEventWriterItemWriterTests {
 
 	protected Resource expected = new ClassPathResource("expected-output.xml", getClass());
 
+	@SuppressWarnings("serial")
 	protected List<Trade> objects = new ArrayList<Trade>() {
 		{
 			add(new Trade("isin1", 1, new BigDecimal(1.0), "customer1"));
@@ -52,13 +53,15 @@ public abstract class AbstractStaxEventWriterItemWriterTests {
 	/**
 	 * Write list of domain objects and check the output file.
 	 */
+	@SuppressWarnings("resource")
 	@Test
 	public void testWrite() throws Exception {
 		StopWatch stopWatch = new StopWatch(getClass().getSimpleName());
 		stopWatch.start();
 		for (int i = 0; i < MAX_WRITE; i++) {
-			new TransactionTemplate(new ResourcelessTransactionManager()).execute(new TransactionCallback() {
-				public Object doInTransaction(TransactionStatus status) {
+			new TransactionTemplate(new ResourcelessTransactionManager()).execute(new TransactionCallback<Void>() {
+				@Override
+				public Void doInTransaction(TransactionStatus status) {
 					try {
 						writer.write(objects);
 					}

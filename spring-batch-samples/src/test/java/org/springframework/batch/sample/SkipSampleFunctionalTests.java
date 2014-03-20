@@ -172,7 +172,7 @@ public class SkipSampleFunctionalTests {
 		// Step2: 7 input records, 1 skipped on process, 1 on write => 5 written
 		// to output
 		// System.err.println(jdbcTemplate.queryForList("SELECT * FROM TRADE"));
-		assertEquals(5, jdbcTemplate.queryForInt("SELECT COUNT(*) from TRADE where VERSION=?", 1));
+		assertEquals(5, jdbcTemplate.queryForObject("SELECT COUNT(*) from TRADE where VERSION=?", Integer.class, 1).intValue());
 
 		// 1 record skipped in processing second step
 		assertEquals(1, SkipCheckingListener.getProcessSkips());
@@ -200,7 +200,7 @@ public class SkipSampleFunctionalTests {
 		assertEquals(5, JdbcTestUtils.countRowsInTable((JdbcTemplate) jdbcTemplate, "TRADE"));
 
 		// Step2: 5 input records => 5 written to output
-		assertEquals(5, jdbcTemplate.queryForInt("SELECT COUNT(*) from TRADE where VERSION=?", 1));
+		assertEquals(5, jdbcTemplate.queryForObject("SELECT COUNT(*) from TRADE where VERSION=?", Integer.class, 1).intValue());
 
 		// Neither step contained skips
 		assertEquals(0, JdbcTestUtils.countRowsInTable((JdbcTemplate) jdbcTemplate, "ERROR_LOG"));

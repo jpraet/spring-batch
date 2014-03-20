@@ -11,7 +11,7 @@ public class SimpleMetricTests {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testNullType() {
-		Metric metric = new SimpleMetric(null, 0);
+		new SimpleMetric(null, 0);
 	}
 
 	@Test

@@ -4,8 +4,7 @@ import javax.batch.api.chunk.ItemProcessor;
 
 import org.springframework.util.Assert;
 
-@SuppressWarnings("rawtypes")
-public class ItemProcessorAdapter implements org.springframework.batch.item.ItemProcessor {
+public class ItemProcessorAdapter<I, O> implements org.springframework.batch.item.ItemProcessor<I, O> {
 
 	private ItemProcessor delegate;
 
@@ -14,8 +13,9 @@ public class ItemProcessorAdapter implements org.springframework.batch.item.Item
 		this.delegate = processor;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object process(Object item) throws Exception {
-		return delegate.processItem(item);
+	public O process(I item) throws Exception {
+		return (O) delegate.processItem(item);
 	}
 }

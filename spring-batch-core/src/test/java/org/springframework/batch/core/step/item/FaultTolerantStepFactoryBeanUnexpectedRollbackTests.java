@@ -80,7 +80,7 @@ public class FaultTolerantStepFactoryBeanUnexpectedRollbackTests {
 		StepExecution stepExecution = jobExecution.createStepExecution(factory.getName());
 		repository.add(stepExecution);
 
-		Step step = (Step) factory.getObject();
+		Step step = factory.getObject();
 
 		step.execute(stepExecution);
 		assertEquals(BatchStatus.FAILED, stepExecution.getStatus());

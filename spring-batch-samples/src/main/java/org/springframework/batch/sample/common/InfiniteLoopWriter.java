@@ -56,6 +56,7 @@ public class InfiniteLoopWriter extends StepExecutionListenerSupport implements 
 		super();
 	}
 
+	@Override
 	public void write(List<? extends Object> items) throws Exception {
 		try {
 			Thread.sleep(500);

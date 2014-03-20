@@ -81,6 +81,7 @@ public class TwoJobInstancesDelimitedFunctionalTests {
 
 		int count = StepScopeTestUtils.doInStepScope(stepExecution, new Callable<Integer>() {
 
+			@Override
 			public Integer call() throws Exception {
 
 				int count = 0;

@@ -50,6 +50,9 @@ public class HeaderFooterSampleFunctionalTests {
 		// footer contains the item count
 		int itemCount = lineCount - 1; // minus 1 due to header line
 		assertTrue(outputReader.readLine().contains(String.valueOf(itemCount)));
+		
+		inputReader.close();
+		outputReader.close();
 	}
 
 }

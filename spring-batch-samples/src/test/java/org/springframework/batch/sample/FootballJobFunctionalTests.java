@@ -36,7 +36,7 @@ public class FootballJobFunctionalTests {
 
 		jobLauncherTestUtils.launchJob();
 
-		int count = jdbcTemplate.queryForInt("SELECT COUNT(*) from PLAYER_SUMMARY");
+		int count = jdbcTemplate.queryForObject("SELECT COUNT(*) from PLAYER_SUMMARY", Integer.class);
 		assertTrue(count > 0);
 
 	}

@@ -53,6 +53,7 @@ public class AggregateItemFieldSetMapperTests {
 	@Test
 	public void testDelegate() throws Exception {
 		mapper.setDelegate(new FieldSetMapper<String>() {
+			@Override
 			public String mapFieldSet(FieldSet fs) {
 				return "foo";
 			}

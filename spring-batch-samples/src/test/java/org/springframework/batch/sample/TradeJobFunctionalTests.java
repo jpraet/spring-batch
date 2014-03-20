@@ -98,6 +98,7 @@ public class TradeJobFunctionalTests {
 		// check content of the trade table
         jdbcTemplate.query(GET_TRADES, new RowCallbackHandler() {
 
+			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Trade trade = trades.get(activeRow++);
 
@@ -114,6 +115,7 @@ public class TradeJobFunctionalTests {
 		activeRow = 0;
         jdbcTemplate.query(GET_CUSTOMERS, new RowCallbackHandler() {
 
+			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Customer customer = customers.get(activeRow++);
 

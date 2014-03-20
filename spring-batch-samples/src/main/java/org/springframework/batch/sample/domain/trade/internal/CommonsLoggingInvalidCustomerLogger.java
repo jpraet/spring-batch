@@ -34,6 +34,7 @@ public class CommonsLoggingInvalidCustomerLogger implements
 	/* (non-Javadoc)
 	 * @see org.springframework.batch.sample.domain.trade.InvalidCustomerLogger#log(org.springframework.batch.sample.domain.trade.CustomerUpdate)
 	 */
+	@Override
 	public void log(CustomerUpdate customerUpdate) {
 		logger.error("invalid customer encountered: [ " + customerUpdate + "]");
 	}

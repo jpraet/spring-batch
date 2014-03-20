@@ -90,6 +90,7 @@ public class JdbcGameDaoIntegrationTests {
 
 	private static class GameRowMapper implements ParameterizedRowMapper<Game> {
 
+		@Override
 		public Game mapRow(ResultSet rs, int arg1) throws SQLException {
 
 			if (rs == null) {

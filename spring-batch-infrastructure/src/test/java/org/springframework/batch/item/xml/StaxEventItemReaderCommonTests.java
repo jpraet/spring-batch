@@ -48,8 +48,7 @@ public class StaxEventItemReaderCommonTests extends AbstractItemStreamItemReader
 			}
 
             @Override
-			@SuppressWarnings("rawtypes")
-			public boolean supports(Class clazz) {
+			public boolean supports(Class<?> clazz) {
 				return true;
 			}
 

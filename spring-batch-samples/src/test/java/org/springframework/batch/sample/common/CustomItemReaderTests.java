@@ -91,6 +91,7 @@ public class CustomItemReaderTests {
 			this.items = items;
 		}
 
+		@Override
 		public T read() throws Exception, UnexpectedInputException,
 			 ParseException {
 			
@@ -100,6 +101,7 @@ public class CustomItemReaderTests {
 			return null;
 		}
 		
+		@Override
 		public void open(ExecutionContext executionContext) throws ItemStreamException {
 			if(executionContext.containsKey(CURRENT_INDEX)){
 				currentIndex = executionContext.getInt(CURRENT_INDEX);
@@ -109,11 +111,13 @@ public class CustomItemReaderTests {
 			}
 		}
 
+		@Override
 		public void close() throws ItemStreamException {}
 
+		@Override
 		public void update(ExecutionContext executionContext) throws ItemStreamException {
 			executionContext.putInt(CURRENT_INDEX, currentIndex);
-		};
+		}
 		
 	}
 }

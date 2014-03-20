@@ -11,6 +11,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 @RunWith(JUnit4.class)
+@SuppressWarnings("deprecation")
 public class IbatisPagingItemReaderCommonTests extends AbstractDatabaseItemStreamItemReaderTests {
 
 	@Override

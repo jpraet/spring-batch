@@ -229,8 +229,8 @@ public class MultiResourceItemReaderIntegrationTests {
 			 */
             @Override
 			public int compare(Resource o1, Resource o2) {
-				Resource r1 = (Resource) o1;
-				Resource r2 = (Resource) o2;
+				Resource r1 = o1;
+				Resource r2 = o2;
 				return -r1.getDescription().compareTo(r2.getDescription());
 			}
 

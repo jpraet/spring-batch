@@ -59,8 +59,7 @@ public class MultiResourceItemWriterXmlTests extends AbstractMultiResourceItemWr
 		}
 
         @Override
-		@SuppressWarnings("rawtypes")
-		public boolean supports(Class clazz) {
+		public boolean supports(Class<?> clazz) {
 			return true;
 		}
 	}

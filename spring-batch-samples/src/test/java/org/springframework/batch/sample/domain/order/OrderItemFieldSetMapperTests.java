@@ -19,6 +19,7 @@ public class OrderItemFieldSetMapperTests extends AbstractFieldSetMapperTests {
 	private static final BigDecimal SHIPPING_PRICE = new BigDecimal("7");
 	private static final BigDecimal TOTAL_PRICE = new BigDecimal("8");
 
+	@Override
 	protected Object expectedDomainObject() {
 		LineItem item = new LineItem();
 		item.setDiscountAmount(DISCOUNT_AMOUNT);
@@ -32,6 +33,7 @@ public class OrderItemFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return item;
 	}
 
+	@Override
 	protected FieldSet fieldSet() {
 		String[] tokens = new String[] { String.valueOf(DISCOUNT_AMOUNT), String.valueOf(DISCOUNT_PERC),
 				String.valueOf(HANDLING_PRICE), String.valueOf(ITEM_ID), String.valueOf(PRICE),
@@ -44,6 +46,7 @@ public class OrderItemFieldSetMapperTests extends AbstractFieldSetMapperTests {
 		return new DefaultFieldSet(tokens, columnNames);
 	}
 
+	@Override
 	protected FieldSetMapper<LineItem> fieldSetMapper() {
 		return new OrderItemFieldSetMapper();
 	}

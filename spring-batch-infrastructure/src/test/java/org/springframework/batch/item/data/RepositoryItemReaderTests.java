@@ -24,12 +24,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-@SuppressWarnings("rawtypes")
 public class RepositoryItemReaderTests {
 
-	private RepositoryItemReader reader;
+	private RepositoryItemReader<Object> reader;
 	@Mock
-	private PagingAndSortingRepository repository;
+	private PagingAndSortingRepository<Object, Integer> repository;
 	private Map<String, Sort.Direction> sorts;
 
 	@Before
@@ -37,7 +36,7 @@ public class RepositoryItemReaderTests {
 		MockitoAnnotations.initMocks(this);
 		sorts = new HashMap<String, Sort.Direction>();
 		sorts.put("id", Direction.ASC);
-		reader = new RepositoryItemReader();
+		reader = new RepositoryItemReader<Object>();
 		reader.setRepository(repository);
 		reader.setPageSize(1);
 		reader.setSort(sorts);
@@ -47,13 +46,13 @@ public class RepositoryItemReaderTests {
 	@Test
 	public void testAfterPropertiesSet() throws Exception {
 		try {
-			new RepositoryItemReader().afterPropertiesSet();
+			new RepositoryItemReader<Object>().afterPropertiesSet();
 			fail();
 		} catch (IllegalStateException e) {
 		}
 
 		try {
-			reader = new RepositoryItemReader();
+			reader = new RepositoryItemReader<Object>();
 			reader.setRepository(repository);
 			reader.afterPropertiesSet();
 			fail();
@@ -61,7 +60,7 @@ public class RepositoryItemReaderTests {
 		}
 
 		try {
-			reader = new RepositoryItemReader();
+			reader = new RepositoryItemReader<Object>();
 			reader.setRepository(repository);
 			reader.setPageSize(-1);
 			reader.afterPropertiesSet();
@@ -70,7 +69,7 @@ public class RepositoryItemReaderTests {
 		}
 
 		try {
-			reader = new RepositoryItemReader();
+			reader = new RepositoryItemReader<Object>();
 			reader.setRepository(repository);
 			reader.setPageSize(1);
 			reader.afterPropertiesSet();
@@ -78,7 +77,7 @@ public class RepositoryItemReaderTests {
 		} catch (IllegalStateException iae) {
 		}
 
-		reader = new RepositoryItemReader();
+		reader = new RepositoryItemReader<Object>();
 		reader.setRepository(repository);
 		reader.setPageSize(1);
 		reader.setSort(sorts);
@@ -86,11 +85,10 @@ public class RepositoryItemReaderTests {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void testDoReadFirstReadNoResults() throws Exception {
 		ArgumentCaptor<PageRequest> pageRequestContainer = ArgumentCaptor.forClass(PageRequest.class);
 
-		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl(new ArrayList()));
+		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl<Object>(new ArrayList<Object>()));
 
 		assertNull(reader.doRead());
 
@@ -102,12 +100,12 @@ public class RepositoryItemReaderTests {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("serial")
 	public void testDoReadFirstReadResults() throws Exception {
 		ArgumentCaptor<PageRequest> pageRequestContainer = ArgumentCaptor.forClass(PageRequest.class);
 		final Object result = new Object();
 
-		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl(new ArrayList(){{
+		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(result);
 		}}));
 
@@ -121,13 +119,13 @@ public class RepositoryItemReaderTests {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("serial")
 	public void testDoReadFirstReadSecondPage() throws Exception {
 		ArgumentCaptor<PageRequest> pageRequestContainer = ArgumentCaptor.forClass(PageRequest.class);
 		final Object result = new Object();
-		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl(new ArrayList(){{
+		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(new Object());
-		}})).thenReturn(new PageImpl(new ArrayList(){{
+		}})).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(result);
 		}}));
 
@@ -142,15 +140,15 @@ public class RepositoryItemReaderTests {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("serial")
 	public void testDoReadFirstReadExhausted() throws Exception {
 		ArgumentCaptor<PageRequest> pageRequestContainer = ArgumentCaptor.forClass(PageRequest.class);
 		final Object result = new Object();
-		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl(new ArrayList(){{
+		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(new Object());
-		}})).thenReturn(new PageImpl(new ArrayList(){{
+		}})).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(result);
-		}})).thenReturn(new PageImpl(new ArrayList()));
+		}})).thenReturn(new PageImpl<Object>(new ArrayList<Object>()));
 
 		assertFalse(reader.doRead() == result);
 		assertEquals(result, reader.doRead());
@@ -164,11 +162,11 @@ public class RepositoryItemReaderTests {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("serial")
 	public void testJumpToItem() throws Exception {
 		reader.setPageSize(100);
 		ArgumentCaptor<PageRequest> pageRequestContainer = ArgumentCaptor.forClass(PageRequest.class);
-		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl(new ArrayList(){{
+		when(repository.findAll(pageRequestContainer.capture())).thenReturn(new PageImpl<Object>(new ArrayList<Object>(){{
 			add(new Object());
 		}}));
 

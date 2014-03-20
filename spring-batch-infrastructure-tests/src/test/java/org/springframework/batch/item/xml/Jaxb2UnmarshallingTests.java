@@ -6,6 +6,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 public class Jaxb2UnmarshallingTests extends AbstractStaxEventReaderItemReaderTests {
 
+	@Override
 	protected Unmarshaller getUnmarshaller() throws Exception {
 		reader.setFragmentRootElementName("trade");
 

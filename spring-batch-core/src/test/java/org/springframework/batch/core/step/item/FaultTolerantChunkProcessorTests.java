@@ -294,8 +294,7 @@ public class FaultTolerantChunkProcessorTests {
 		processor.setWriteSkipPolicy(new AlwaysSkipItemSkipPolicy());
 
 		processAndExpectPlannedRuntimeException(chunk);// Process foo, fail
-		processor.process(contribution, chunk);
-		;// Process foo
+		processor.process(contribution, chunk);// Process foo
 		processAndExpectPlannedRuntimeException(chunk);// Process fail
 
 		assertEquals("[foo, fail, fail]", writeError.toString());

@@ -68,7 +68,7 @@ public class StagingItemReaderTests {
 	@Test
 	public void testReaderWithProcessorUpdatesProcessIndicator() throws Exception {
 
-		long id = jdbcTemplate.queryForLong("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", jobId);
+		long id = jdbcTemplate.queryForObject("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", Long.class, jobId);
 		String before = jdbcTemplate.queryForObject("SELECT PROCESSED from BATCH_STAGING where ID=?",
 				String.class, id);
 		assertEquals(StagingItemWriter.NEW, before);
@@ -92,18 +92,19 @@ public class StagingItemReaderTests {
 	public void testUpdateProcessIndicatorAfterCommit() throws Exception {
 		TransactionTemplate txTemplate = new TransactionTemplate(transactionManager);
 		txTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-		txTemplate.execute(new TransactionCallback() {
-			public Object doInTransaction(TransactionStatus transactionStatus) {
+		txTemplate.execute(new TransactionCallback<Void>() {
+			@Override
+			public Void doInTransaction(TransactionStatus transactionStatus) {
 				try {
 					testReaderWithProcessorUpdatesProcessIndicator();
 				}
 				catch (Exception e) {
-					fail("Unxpected Exception: " + e);
+					fail("Unexpected Exception: " + e);
 				}
 				return null;
 			}
 		});
-		long id = jdbcTemplate.queryForLong("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", jobId);
+		long id = jdbcTemplate.queryForObject("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", Long.class, jobId);
 		String before = jdbcTemplate.queryForObject("SELECT PROCESSED from BATCH_STAGING where ID=?",
 				String.class, id);
 		assertEquals(StagingItemWriter.DONE, before);
@@ -116,10 +117,11 @@ public class StagingItemReaderTests {
 		TransactionTemplate txTemplate = new TransactionTemplate(transactionManager);
 		txTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 
-		final Long idToUse = (Long) txTemplate.execute(new TransactionCallback() {
-			public Object doInTransaction(TransactionStatus transactionStatus) {
+		final Long idToUse = txTemplate.execute(new TransactionCallback<Long>() {
+			@Override
+			public Long doInTransaction(TransactionStatus transactionStatus) {
 
-				long id = jdbcTemplate.queryForLong("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", jobId);
+				long id = jdbcTemplate.queryForObject("SELECT MIN(ID) from BATCH_STAGING where JOB_ID=?", Long.class, jobId);
 				String before = jdbcTemplate.queryForObject("SELECT PROCESSED from BATCH_STAGING where ID=?",
 						String.class, id);
 				assertEquals(StagingItemWriter.NEW, before);

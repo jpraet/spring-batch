@@ -20,7 +20,7 @@ import org.springframework.batch.item.ItemStreamException;
 
 public class ItemWriterAdapterTests {
 
-	private ItemWriterAdapter adapter;
+	private ItemWriterAdapter<String> adapter;
 	@Mock
 	private ItemWriter delegate;
 	@Mock
@@ -30,12 +30,12 @@ public class ItemWriterAdapterTests {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		adapter = new ItemWriterAdapter(delegate);
+		adapter = new ItemWriterAdapter<String>(delegate);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCreateWithNull() {
-		adapter = new ItemWriterAdapter(null);
+		adapter = new ItemWriterAdapter<String>(null);
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class ItemWriterAdapterTests {
 
 	@Test
 	public void testCheckpointChange() throws Exception {
-		ItemWriterAdapter adapter = new ItemWriterAdapter(new ItemWriter() {
+		ItemWriterAdapter<String> adapter = new ItemWriterAdapter<String>(new ItemWriter() {
 
 			private CheckpointContainer container = null;
 

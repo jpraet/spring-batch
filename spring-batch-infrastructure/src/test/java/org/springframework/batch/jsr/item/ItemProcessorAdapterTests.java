@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 public class ItemProcessorAdapterTests {
 
-	private ItemProcessorAdapter adapter;
+	private ItemProcessorAdapter<String, String> adapter;
 	@Mock
 	private ItemProcessor delegate;
 
@@ -20,12 +20,12 @@ public class ItemProcessorAdapterTests {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		adapter = new ItemProcessorAdapter(delegate);
+		adapter = new ItemProcessorAdapter<String, String>(delegate);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCreateWithNull() {
-		adapter = new ItemProcessorAdapter(null);
+		adapter = new ItemProcessorAdapter<String, String>(null);
 	}
 
 	@Test

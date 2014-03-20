@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.explore.support.MapJobExplorerFactoryBean;
-import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
 
 /**
@@ -22,12 +21,12 @@ public class MapJobExplorerFactoryBeanTests {
 	public void testCreateExplorer() throws Exception {
 
 		MapJobRepositoryFactoryBean repositoryFactory = new MapJobRepositoryFactoryBean();
-		(repositoryFactory.getObject()).createJobExecution("foo", new JobParameters());
+		repositoryFactory.getObject().createJobExecution("foo", new JobParameters());
 		
 		MapJobExplorerFactoryBean tested = new MapJobExplorerFactoryBean(repositoryFactory);
 		tested.afterPropertiesSet();
 
-		JobExplorer explorer = (JobExplorer) tested.getObject();
+		JobExplorer explorer = tested.getObject();
 
 		assertEquals(1, explorer.findRunningJobExecutions("foo").size());
 
