@@ -44,10 +44,10 @@ public class SqlWindowingPagingQueryProvider extends AbstractSqlPagingQueryProvi
 		sql.append(" FROM ").append(getFromClause()).append(
 				getWhereClause() == null ? "" : " WHERE " + getWhereClause());
 		sql.append(getGroupClause() == null ? "" : " GROUP BY " + getGroupClause());
+		sql.append(" ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this));
 		sql.append(getOverSubstituteClauseEnd());
 		sql.append(") ").append(getSubQueryAlias()).append("WHERE ").append(extractTableAlias()).append(
 				"ROW_NUMBER <= ").append(pageSize);
-		sql.append(" ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this));
 		
 		return sql.toString();
 	}
@@ -77,18 +77,17 @@ public class SqlWindowingPagingQueryProvider extends AbstractSqlPagingQueryProvi
 		sql.append(") AS ROW_NUMBER");
 		sql.append(getOverSubstituteClauseStart());
 		sql.append(" FROM ").append(getFromClause());
+		sql.append(" WHERE ");
 		if (getWhereClause() != null) {
-			sql.append(" WHERE ");
 			sql.append(getWhereClause());
+			sql.append(" AND ");
 		}
-		
+		SqlPagingQueryUtils.buildSortConditions(this, sql);
 		sql.append(getGroupClause() == null ? "" : " GROUP BY " + getGroupClause());
+		sql.append(" ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this));
 		sql.append(getOverSubstituteClauseEnd());
 		sql.append(") ").append(getSubQueryAlias()).append("WHERE ").append(extractTableAlias()).append(
 				"ROW_NUMBER <= ").append(pageSize);
-		sql.append(" AND ");
-		SqlPagingQueryUtils.buildSortConditions(this, sql);
-		sql.append(" ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this));
 
 		return sql.toString();
 	}

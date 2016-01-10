@@ -37,7 +37,7 @@ public class SqlWindowingPagingQueryProviderTests extends AbstractSqlPagingQuery
 	@Test 
 	@Override
 	public void testGenerateFirstPageQuery() {
-		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 ORDER BY id ASC";
+		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 ORDER BY id ASC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 		String s = pagingQueryProvider.generateFirstPageQuery(pageSize);
 		assertEquals("", sql, s);
 	}
@@ -45,7 +45,7 @@ public class SqlWindowingPagingQueryProviderTests extends AbstractSqlPagingQuery
 	@Test 
 	@Override
 	public void testGenerateRemainingPagesQuery() {
-		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 AND ((id > ?)) ORDER BY id ASC";
+		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 AND ((id > ?)) ORDER BY id ASC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 		String s = pagingQueryProvider.generateRemainingPagesQuery(pageSize);
 		assertEquals("", sql, s);
 	}
@@ -70,7 +70,7 @@ public class SqlWindowingPagingQueryProviderTests extends AbstractSqlPagingQuery
 	@Override
 	public void testGenerateFirstPageQueryWithGroupBy() {
 		pagingQueryProvider.setGroupClause("dep");
-		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 GROUP BY dep) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 ORDER BY id ASC";
+		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 GROUP BY dep ORDER BY id ASC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 		String s = pagingQueryProvider.generateFirstPageQuery(pageSize);
 		assertEquals(sql, s);
 	}
@@ -79,7 +79,7 @@ public class SqlWindowingPagingQueryProviderTests extends AbstractSqlPagingQuery
 	@Override
 	public void testGenerateRemainingPagesQueryWithGroupBy() {
 		pagingQueryProvider.setGroupClause("dep");
-		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 GROUP BY dep) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 AND ((id > ?)) ORDER BY id ASC";
+		String sql = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY id ASC) AS ROW_NUMBER FROM foo WHERE bar = 1 AND ((id > ?)) GROUP BY dep ORDER BY id ASC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 		String s = pagingQueryProvider.generateRemainingPagesQuery(pageSize);
 		assertEquals(sql, s);
 	}
@@ -118,12 +118,12 @@ public class SqlWindowingPagingQueryProviderTests extends AbstractSqlPagingQuery
 
 	@Override
 	public String getFirstPageSqlWithMultipleSortKeys() {
-		return "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY name ASC, id DESC) AS ROW_NUMBER FROM foo WHERE bar = 1) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 ORDER BY name ASC, id DESC";
+		return "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY name ASC, id DESC) AS ROW_NUMBER FROM foo WHERE bar = 1 ORDER BY name ASC, id DESC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 	}
 
 	@Override
 	public String getRemainingSqlWithMultipleSortKeys() {
-		return "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY name ASC, id DESC) AS ROW_NUMBER FROM foo WHERE bar = 1) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100 AND ((name > ?) OR (name = ? AND id < ?)) ORDER BY name ASC, id DESC";
+		return "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER ( ORDER BY name ASC, id DESC) AS ROW_NUMBER FROM foo WHERE bar = 1 AND ((name > ?) OR (name = ? AND id < ?)) ORDER BY name ASC, id DESC) AS TMP_SUB WHERE TMP_SUB.ROW_NUMBER <= 100";
 	}
 
 	@Override
